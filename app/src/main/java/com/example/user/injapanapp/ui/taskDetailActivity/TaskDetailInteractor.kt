@@ -26,13 +26,13 @@ class TaskDetailInteractor(private val repository: TaskRepository =
             taskObject.taskGotMoney = "0"
 
         repository.update(taskObject)
-        listener.onSuccessUpdatePay()
+        Handler().postDelayed({listener.onSuccessUpdatePay()}, 300)
     }
 
     override fun updateFinishedStatus(taskObject: TaskObject,
                                       listener: ITaskDetailInteractor.OnTaskDetailListener) {
         if (taskObject.taskGotMoney == "1") {
-            taskObject.taskCompleted = "1"
+            taskObject.taskFinished = "1"
             repository.update(taskObject)
             listener.onSuccessUpdateFinished()
         }else{
@@ -42,6 +42,16 @@ class TaskDetailInteractor(private val repository: TaskRepository =
 
     override fun editDescription(taskObject: TaskObject, listener: ITaskDetailInteractor.OnTaskDetailListener) {
         repository.update(taskObject)
-        Handler().postDelayed({listener.onSuccessUpdatePay()}, 1000)
+        Handler().postDelayed({listener.onSuccessUpdatePay()}, 300)
+    }
+
+    override fun updateDoneStatus(taskObject: TaskObject, listener: ITaskDetailInteractor.OnTaskDetailListener) {
+        if (taskObject.taskDone == "0")
+            taskObject.taskDone = "1"
+        else
+            taskObject.taskDone = "0"
+
+        repository.update(taskObject)
+        Handler().postDelayed({listener.onSuccessUpdatePay()}, 300)
     }
 }

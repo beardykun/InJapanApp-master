@@ -15,22 +15,27 @@
             app:cardPreventCornerOverlap="false">
 
         <LinearLayout
+                android:id="@+id/mainLinearView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginStart="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp8"
                 android:gravity="center"
                 android:orientation="horizontal">
 
             <TextView
                     android:id="@+id/mainGoodsNumberTV"
                     android:layout_width="wrap_content"
+                    android:textStyle="bold"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
                     tools:text="R-740444"/>
 
             <TextView
                     android:id="@+id/mainDateTV"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="2d:11h:53m"/>
@@ -38,6 +43,7 @@
             <TextView
                     tools:text="SEPARATE"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:id="@+id/mainTaskTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

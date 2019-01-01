@@ -13,6 +13,7 @@ import com.example.user.injapanapp.R
 import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.database.DatabaseContract
+import com.example.user.injapanapp.ui.historyActivity.HistoryActivity
 import com.example.user.injapanapp.ui.mainActivity.MainActivity
 import kotlinx.android.synthetic.main.activity_general_with_menu.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -87,6 +88,9 @@ abstract class GeneralActivityWithMenu : GeneralActivity(), NavigationView.OnNav
             R.id.check ->{
                 startActivity(MainActivity::class.java)
                 SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, "CHECK")
+            }
+            R.id.history ->{
+                startActivity(HistoryActivity::class.java)
             }
             else -> {
                 SharedPreferencesClass.deleteFromPrefs()

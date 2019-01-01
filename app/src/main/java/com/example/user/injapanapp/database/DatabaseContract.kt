@@ -10,6 +10,7 @@ class DatabaseContract {
             const val TASK_NUMBER = "taskNumber"
             const val TASK_TYPE = "taskType"
             const val TASK_START = "taskStart"
+            const val TASK_DONE = "taskDone"
             const val TASK_GOT_MONEY = "taskEnd"
             const val TASK_COST = "taskCost"
             const val TASK_DESCRIPTION = "taskDescription"

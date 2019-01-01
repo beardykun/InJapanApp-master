@@ -12,4 +12,5 @@ interface ITaskDetailPresenter: IGeneralPresenter {
     fun updatePaymentStatus(taskObject: TaskObject)
     fun updateFinishedStatus(taskObject: TaskObject)
     fun addDescription(taskObject: TaskObject)
+    fun updateDoneStatus(taskObject: TaskObject)
 }

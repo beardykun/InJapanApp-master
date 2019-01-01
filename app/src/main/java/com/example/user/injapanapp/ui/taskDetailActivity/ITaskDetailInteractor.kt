@@ -15,4 +15,5 @@ interface ITaskDetailInteractor {
     fun updatePaymentStatus(taskObject: TaskObject, listener: OnTaskDetailListener)
     fun updateFinishedStatus(taskObject: TaskObject, listener: OnTaskDetailListener)
     fun editDescription(taskObject: TaskObject, listener: OnTaskDetailListener)
+    fun updateDoneStatus(taskObject: TaskObject, listener: OnTaskDetailListener)
 }

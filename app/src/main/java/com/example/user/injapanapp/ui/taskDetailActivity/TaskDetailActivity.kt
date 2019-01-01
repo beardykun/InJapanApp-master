@@ -74,6 +74,11 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         } else {
             detailTaskPriceTV.setTextColor(resources.getColor(R.color.black))
         }
+        if (taskObject.taskDone == "1"){
+            detailTaskTypeTV.setTextColor(resources.getColor(R.color.colorAccent))
+        }else{
+            detailTaskTypeTV.setTextColor(resources.getColor(R.color.black))
+        }
         detailTaskPriceTV.text = taskObject.taskPrice
         detailTaskShelfTV.text = taskObject.taskShelfNumber
         detailTaskEndDateTV.text = Utils.getTimeToEnd(taskObject.taskStartTime!!.toLong())
@@ -82,26 +87,28 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
 
     private fun setOnClicks() {
         detailTaskPriceTV.setOnClickListener {
-            alert("Update payed status?") {
+            alert("Payment received?") {
                 okButton { presenter?.updatePaymentStatus(taskObject!!) }
                 noButton { }
             }.show()
         }
         detailFinishedBtn.setOnClickListener {
-            alert("Task Accomplished?") {
+            alert("Close the Task?") {
                 okButton { presenter?.updateFinishedStatus(taskObject!!) }
                 noButton { }
             }.show()
         }
-        //todo make more sukkiri
+        detailTaskTypeTV.setOnClickListener {
+            alert("Task Accomplished?") {
+                okButton { presenter?.updateDoneStatus(taskObject!!) }
+                noButton { }
+            }.show()
+        }
         detailTaskDescriptionTV.setOnEditorActionListener(this)
         detailWhatToDoTV.setOnClickListener {
             alert("Edit description?") {
                 okButton {
-                    detailTaskDescriptionTV.isFocusableInTouchMode = true
-                    detailTaskDescriptionTV.isFocusable = true
-                    detailTaskDescriptionTV.isEnabled = true
-                    detailTaskDescriptionTV.inputType = InputType.TYPE_CLASS_TEXT
+                    editText(true)
                 }
                 noButton { }
             }.show()
@@ -112,9 +119,7 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         if (p1 == EditorInfo.IME_ACTION_DONE) {
             taskObject?.taskDescription = textView.text.toString()
             presenter?.addDescription(taskObject!!)
-            detailTaskDescriptionTV.isFocusable = false
-            detailTaskDescriptionTV.isEnabled = false
-            detailTaskDescriptionTV.inputType = InputType.TYPE_NULL
+            editText(false)
             return true
         }
         return false
@@ -122,5 +127,18 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
 
     override fun finishActivity() {
         finish()
+    }
+
+    private fun editText(boolean: Boolean) {
+        if (boolean) {
+            detailTaskDescriptionTV.isFocusableInTouchMode = true
+            detailTaskDescriptionTV.isFocusable = true
+            detailTaskDescriptionTV.isEnabled = true
+            detailTaskDescriptionTV.inputType = InputType.TYPE_CLASS_TEXT
+        } else {
+            detailTaskDescriptionTV.isFocusable = false
+            detailTaskDescriptionTV.isEnabled = false
+            detailTaskDescriptionTV.inputType = InputType.TYPE_NULL
+        }
     }
 }

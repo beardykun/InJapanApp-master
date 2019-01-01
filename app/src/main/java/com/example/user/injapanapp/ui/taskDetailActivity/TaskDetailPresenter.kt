@@ -54,4 +54,9 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
         view?.showProgress()
         interactor.editDescription(taskObject, this)
     }
+
+    override fun updateDoneStatus(taskObject: TaskObject) {
+        view?.showProgress()
+        interactor.updateDoneStatus(taskObject, this)
+    }
 }

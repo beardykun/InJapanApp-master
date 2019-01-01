@@ -6,12 +6,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.mainActivity.MainActivity">
-
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/mainRecyclerView"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+            <TextView
+                    android:gravity="center"
+                    android:background="@color/payed"
+                    android:text="@string/got_money"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+
+            <TextView
+                    android:background="@color/done"
+                    android:gravity="center"
+                    android:text="@string/task_done"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+
+            <TextView
+                    android:background="@color/payed_and_done"
+                    android:gravity="center"
+                    android:text="@string/done_and_payed"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/mainRecyclerView"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/mainAddTask"
@@ -21,6 +57,5 @@
             app:layout_anchorGravity="bottom|end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
 
 </android.support.design.widget.CoordinatorLayout>

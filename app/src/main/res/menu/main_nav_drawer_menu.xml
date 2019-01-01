@@ -40,14 +40,14 @@
                 app:showAsAction="withText"/>
     </group>
 
-    <!--<group
+    <group
         android:id="@+id/group_2"
         android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/logout"
-            android:title="@string/log_out"
+            android:id="@+id/history"
+            android:icon="@drawable/ic_event_note_black_24dp"
+            android:title="@string/history"
             app:showAsAction="withText" />
-    </group>-->
+    </group>
 
 </menu>

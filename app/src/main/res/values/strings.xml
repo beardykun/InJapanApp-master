@@ -27,4 +27,8 @@
     <string name="separate">Separate</string>
     <string name="test">Test</string>
     <string name="show_all_tasks">Show All Tasks</string>
+    <string name="history">History</string>
+    <string name="done_and_payed">Done and Payed</string>
+    <string name="task_done">Task Done</string>
+    <string name="got_money">Got money</string>
 </resources>
