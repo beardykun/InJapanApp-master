@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dp16"
+        android:orientation="vertical"
+        tools:context=".ui.createTaskActivity.CreateTaskActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp64"
+            android:layout_marginBottom="@dimen/dp16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="0dp"
+                android:text="@string/enter_r_or_s_number"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"/>
+
+        <TextView
+                android:id="@+id/createTaskRorSTV"
+                android:text="@string/r"
+                android:textStyle="bold"
+                android:layout_weight="0.1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+
+        <EditText
+                android:id="@+id/createTaskNumberET"
+                android:inputType="number"
+                android:hint="@string/detail_number"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="0dp"
+                android:text="@string/task_type"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"/>
+
+        <TextView
+                android:id="@+id/createTaskTypeTV"
+                android:hint="@string/choose_task_type"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/price"
+                android:layout_height="match_parent"/>
+
+        <TextView
+                android:id="@+id/createTaskPriceTV"
+                android:layout_weight="1"
+                android:hint="@string/choose_price"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="0dp"
+                android:text="@string/shelf_number"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+
+        <EditText
+                android:id="@+id/createTaskShelfET"
+                android:inputType="numberDecimal"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:hint="@string/enter_shelf_number"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:text="@string/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <EditText
+            android:id="@+id/createTaskDescriptionET"
+            android:inputType="text"
+            android:hint="@string/enter_task_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <Button
+            android:layout_marginTop="@dimen/dp128"
+            android:id="@+id/createTaskBtn"
+            android:text="@string/create_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

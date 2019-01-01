@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">InJapanApp</string>
+    <string name="app_error_dismiss" translatable="false">OK</string>
+    <string name="app_navigation_drawer_open">Open navigation drawer</string>
+    <string name="app_navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="price">Price:</string>
+    <string name="shelf_number">Shelf Number:</string>
+    <string name="task_type">Task type:</string>
+    <string name="enter_r_or_s_number">Enter R- or S- number</string>
+    <string name="task_number">Task Number</string>
+    <string name="description">Description</string>
+    <string name="create_task">Create Task</string>
+    <string name="r">R-</string>
+    <string name="detail_number">detail number</string>
+    <string name="choose_task_type">choose task type</string>
+    <string name="choose_price">choose price</string>
+    <string name="enter_shelf_number">enter shelf number</string>
+    <string name="enter_task_description">Enter Task Description</string>
+    <string name="time_passed">Time passed:</string>
+    <string name="what_to_do">What to do:</string>
+    <string name="check">Check</string>
+    <string name="separate_and_trash">Separate And Trash</string>
+    <string name="trash">Trash</string>
+    <string name="photo">Photo</string>
+    <string name="separate">Separate</string>
+    <string name="test">Test</string>
+    <string name="show_all_tasks">Show All Tasks</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dp8">8dp</dimen>
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="dp32">32dp</dimen>
+    <dimen name="dp64">64dp</dimen>
+    <dimen name="dp128">128dp</dimen>
+    <dimen name="toolbar_size">56dp</dimen>
+    <dimen name="dimen_4">4dp</dimen>
+    <dimen name="toolbar_padding">0dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="dimen_1">1dp</dimen>
+    <dimen name="dimen_8">8dp</dimen>
+    <dimen name="dp48">48dp</dimen>
+</resources>

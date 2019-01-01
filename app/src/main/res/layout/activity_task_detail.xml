@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dp16"
+        android:orientation="vertical"
+        tools:context=".ui.taskDetailActivity.TaskDetailActivity">
+
+    <TextView
+            android:id="@+id/detailTaskNumberTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold|italic"
+            style="@style/Base.TextAppearance.AppCompat.Display2"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/dp32"
+            tools:text="R740444"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/time_passed"
+                android:layout_height="wrap_content"/>
+
+
+        <TextView
+                android:id="@+id/detailTaskEndDateTV"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                tools:text="1d:3h:17m"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:text="@string/task_type"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/detailTaskTypeTV"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                tools:text="Test"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:text="@string/price"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/detailTaskPriceTV"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                tools:text="1000 yen"/>
+
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:orientation="horizontal">
+
+        <TextView
+                android:text="@string/shelf_number"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/detailTaskShelfTV"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                tools:text="3312/5"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/detailWhatToDoTV"
+            android:text="@string/what_to_do"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <EditText
+            android:focusable="false"
+            android:id="@+id/detailTaskDescriptionTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Make me fill better"/>
+
+    <ImageButton
+            android:layout_marginTop="@dimen/dp128"
+            android:id="@+id/detailFinishedBtn"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_done_black_24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>
