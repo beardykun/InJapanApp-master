@@ -1,10 +1,22 @@
 package com.example.user.injapanapp.ui.createTaskActivity
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.provider.MediaStore
+import android.support.v4.content.FileProvider
+import android.widget.ImageView
 import com.example.user.injapanapp.app.ThisApplication
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
+import org.jetbrains.anko.imageBitmap
+import java.io.File
+import java.io.IOException
 
 class CreateTaskInteractor : ICreateTaskInteractor {
+
+    private var mTempPhotoPath: String? = null
+    private var mResultsBitmap: Bitmap? = null
+    private val FILE_PROVIDER_AUTHORITY = "com.example.user.fileprovider"
 
     override fun validateAndInsert(
         taskNumber: String, taskType: String,
@@ -35,5 +47,51 @@ class CreateTaskInteractor : ICreateTaskInteractor {
         val repository = TaskRepository(ThisApplication.getInstance())
         repository.insert(taskObject)
         listener.onSuccess()
+    }
+
+    override fun launchCamera(listener: ICreateTaskInteractor.OnCreateTaskListener) {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (takePictureIntent.resolveActivity(ThisApplication.getInstance().packageManager) != null) {
+            var photoFile: File? = null
+            try {
+                photoFile = BitmapUtils.createTempImageFile(ThisApplication.getInstance())
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+            }
+            if (photoFile != null) {
+                mTempPhotoPath = photoFile.absolutePath
+
+                val photoURI = FileProvider.getUriForFile(
+                    ThisApplication.getInstance(),
+                    FILE_PROVIDER_AUTHORITY, photoFile
+                )
+
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+
+                listener.onPictureSuccess(takePictureIntent)
+            }
+        }
+    }
+
+    override fun deleteImageFile(listener: ICreateTaskInteractor.OnCreateTaskListener) {
+        BitmapUtils.deleteImageFile(ThisApplication.getInstance(), mTempPhotoPath!!)
+        listener.onSaveAndClearAndDeleteSuccess()
+    }
+
+    override fun processAndSetImage(imageView: ImageView, listener: ICreateTaskInteractor.OnCreateTaskListener) {
+        mResultsBitmap = BitmapUtils.resamplePic(ThisApplication.getInstance(), mTempPhotoPath!!)
+        imageView.imageBitmap = mResultsBitmap
+        listener.onProcessAndSetImageSuccess()
+    }
+
+    override fun saveImage(listener: ICreateTaskInteractor.OnCreateTaskListener) {
+        BitmapUtils.deleteImageFile(ThisApplication.getInstance(), mTempPhotoPath!!)
+        BitmapUtils.saveImage(ThisApplication.getInstance(), mResultsBitmap!!)
+        listener.onSaveAndClearAndDeleteSuccess()
+    }
+
+    override fun clearImage(listener: ICreateTaskInteractor.OnCreateTaskListener) {
+        BitmapUtils.deleteImageFile(ThisApplication.getInstance(), mTempPhotoPath!!)
+        listener.onSaveAndClearAndDeleteSuccess()
     }
 }

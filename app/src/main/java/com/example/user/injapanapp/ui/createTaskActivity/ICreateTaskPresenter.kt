@@ -1,5 +1,6 @@
 package com.example.user.injapanapp.ui.createTaskActivity
 
+import android.widget.ImageView
 import com.example.user.injapanapp.ui.generalActivity.IGeneralPresenter
 
 interface ICreateTaskPresenter : IGeneralPresenter {
@@ -10,4 +11,10 @@ interface ICreateTaskPresenter : IGeneralPresenter {
         taskNumber: String, taskType: String,
         taskPrice: String, taskShelf: String, taskDescription: String
     )
+
+    fun launchCamera()
+    fun deleteImageFile()
+    fun processAndSetImage(imageView: ImageView)
+    fun saveImage()
+    fun clearImage()
 }

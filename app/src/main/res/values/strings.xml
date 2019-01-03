@@ -31,4 +31,7 @@
     <string name="done_and_payed">Done and Payed</string>
     <string name="task_done">Task Done</string>
     <string name="got_money">Got money</string>
+    <string name="saved_message">Image Saved at %1$s</string>
+    <string name="not_saved">Image not saved!</string>
+    <string name="error">Error finding image</string>
 </resources>

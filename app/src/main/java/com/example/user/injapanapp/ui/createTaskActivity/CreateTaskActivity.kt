@@ -1,20 +1,27 @@
 package com.example.user.injapanapp.ui.createTaskActivity
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.widget.TextView
+import android.widget.Toast
 import com.example.user.injapanapp.R
+import com.example.user.injapanapp.app.ThisApplication
 import com.example.user.injapanapp.ui.generalActivity.GeneralActivityWithAppBar
 import com.example.user.injapanapp.ui.mainActivity.MainActivity
 import kotlinx.android.synthetic.main.activity_create_task.*
 import org.jetbrains.anko.selector
+import org.jetbrains.anko.toast
 
 class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
 
     private var presenter: ICreateTaskPresenter? = null
     private val REQUEST_IMAGE_CAPTURE = 1
     private val REQUEST_STORAGE_PERMISSION = 1
-
-    private val FILE_PROVIDER_AUTHORITY = "com.example.user.fileprovider"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +66,9 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
     }
 
     private fun setClickListeners() {
+        createTaskTakePickFAB.setOnClickListener { //checkPermissions()
+            toast("Not implemented yet")
+        }
         createTaskRorSTV.setOnClickListener { getSelector(createTaskRorSTV, listOf("R-", "S-")) }
         createTaskTypeTV.setOnClickListener {
             getSelector(
@@ -83,5 +93,44 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
 
     override fun finishActivity() {
         startActivity(MainActivity::class.java)
+    }
+
+    private fun checkPermissions() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                REQUEST_STORAGE_PERMISSION
+            )
+        } else {
+            presenter?.launchCamera()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_STORAGE_PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    presenter?.launchCamera()
+                } else {
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    override fun startPictureActivity(intent: Intent) {
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
+            presenter?.processAndSetImage(createTaskBitmapIV)
+        }else{
+            presenter?.deleteImageFile()
+        }
     }
 }
