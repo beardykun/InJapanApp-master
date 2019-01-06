@@ -9,4 +9,5 @@ interface ITaskDetailView : IGeneralView{
 
     fun loadTaskInfo()
     fun finishActivity()
+    fun setTime(time: String)
 }

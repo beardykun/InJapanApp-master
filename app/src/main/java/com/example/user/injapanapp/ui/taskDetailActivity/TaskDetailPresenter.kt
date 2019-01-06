@@ -1,5 +1,7 @@
 package com.example.user.injapanapp.ui.taskDetailActivity
 
+import android.support.design.widget.FloatingActionButton
+import android.widget.EditText
 import com.example.user.injapanapp.database.TaskObject
 
 class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDetailInteractor()) :
@@ -20,29 +22,9 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
         view?.setTaskData(taskObject)
     }
 
-    override fun onError(error: String?, code: Int) {
-        view?.hideProgress()
-        view?.showError(error)
-    }
-
-    override fun getTaskDataFromDb(taskNumber: String) {
-        view?.showProgress()
-        interactor.getTaskDataFromDb(taskNumber, this)
-    }
-
-    override fun updatePaymentStatus(taskObject: TaskObject) {
-        view?.showProgress()
-        interactor.updatePaymentStatus(taskObject, this)
-    }
-
     override fun onSuccessUpdatePay() {
         view?.hideProgress()
         view?.loadTaskInfo()
-    }
-
-    override fun updateFinishedStatus(taskObject: TaskObject) {
-        view?.showProgress()
-        interactor.updateFinishedStatus(taskObject, this)
     }
 
     override fun onSuccessUpdateFinished() {
@@ -50,13 +32,47 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
         view?.finishActivity()
     }
 
-    override fun addDescription(taskObject: TaskObject) {
-        view?.showProgress()
-        interactor.editDescription(taskObject, this)
+    override fun onSuccessTimerStopped(time: String) {
+        view?.hideProgress()
+        view?.setTime(time)
     }
 
-    override fun updateDoneStatus(taskObject: TaskObject) {
+    override fun onError(error: String?, code: Int) {
+        view?.hideProgress()
+        view?.showError(error)
+    }
+
+    override fun getTaskDataFromDb() {
         view?.showProgress()
-        interactor.updateDoneStatus(taskObject, this)
+        interactor.getTaskDataFromDb(this)
+    }
+
+    override fun updatePaymentStatus() {
+        view?.showProgress()
+        interactor.updatePaymentStatus(this)
+    }
+
+    override fun updateFinishedStatus() {
+        view?.showProgress()
+        interactor.updateFinishedStatus(this)
+    }
+
+    override fun addDescription(string: String) {
+        view?.showProgress()
+        interactor.editDescription(string, this)
+    }
+
+    override fun updateDoneStatus() {
+        view?.showProgress()
+        interactor.updateDoneStatus(this)
+    }
+
+    override fun startOrStopTimer(floatingActionButton: FloatingActionButton) {
+        view?.showProgress()
+        interactor.startOrStopTimer(floatingActionButton, this)
+    }
+
+    override fun enableDisableEditDescription(detailTaskDescriptionTV: EditText, enabled: Boolean) {
+        interactor.enableDisableEditDescription(detailTaskDescriptionTV, enabled)
     }
 }

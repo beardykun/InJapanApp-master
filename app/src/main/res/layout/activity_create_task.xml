@@ -7,143 +7,150 @@
         android:layout_height="match_parent"
         tools:context=".ui.createTaskActivity.CreateTaskActivity">
 
-    <LinearLayout
-            android:layout_margin="@dimen/dp16"
-            android:orientation="vertical"
+    <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
         <LinearLayout
+                android:layout_margin="@dimen/dp16"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp64"
-                android:layout_marginBottom="@dimen/dp16"
-                android:orientation="horizontal">
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp64"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:text="@string/enter_r_or_s_number"
+                        android:layout_weight="0.8"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:id="@+id/createTaskRorSTV"
+                        android:text="@string/r"
+                        android:textStyle="bold"
+                        android:layout_weight="0.1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+
+                <EditText
+                        android:id="@+id/createTaskNumberET"
+                        android:inputType="number"
+                        android:hint="@string/detail_number"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:text="@string/task_type"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:id="@+id/createTaskTypeTV"
+                        android:hint="@string/choose_task_type"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/price"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:id="@+id/createTaskPriceTV"
+                        android:layout_weight="1"
+                        android:hint="@string/choose_price"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:text="@string/shelf_number"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
+
+                <EditText
+                        android:id="@+id/createTaskShelfET"
+                        android:inputType="numberDecimal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:hint="@string/enter_shelf_number"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
             <TextView
-                    android:layout_width="0dp"
-                    android:text="@string/enter_r_or_s_number"
-                    android:layout_weight="0.8"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"/>
-
-            <TextView
-                    android:id="@+id/createTaskRorSTV"
-                    android:text="@string/r"
-                    android:textStyle="bold"
-                    android:layout_weight="0.1"
-                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:text="@string/description"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-
 
             <EditText
-                    android:id="@+id/createTaskNumberET"
-                    android:inputType="number"
-                    android:hint="@string/detail_number"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:id="@+id/createTaskDescriptionET"
+                    android:inputType="text"
+                    android:hint="@string/enter_task_description"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-        </LinearLayout>
+            <ImageView
+                    android:id="@+id/createTaskBitmapIV"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerInside"
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"/>
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:layout_width="0dp"
-                    android:text="@string/task_type"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"/>
-
-            <TextView
-                    android:id="@+id/createTaskTypeTV"
-                    android:hint="@string/choose_task_type"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_width="0dp"
+            <Button
+                    android:layout_marginTop="@dimen/dp16"
+                    android:id="@+id/createTaskBtn"
+                    android:text="@string/create_task"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-
         </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/price"
-                    android:layout_height="match_parent"/>
-
-            <TextView
-                    android:id="@+id/createTaskPriceTV"
-                    android:layout_weight="1"
-                    android:hint="@string/choose_price"
-                    android:gravity="center"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:layout_width="0dp"
-                    android:text="@string/shelf_number"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"/>
-
-            <EditText
-                    android:id="@+id/createTaskShelfET"
-                    android:inputType="numberDecimal"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:hint="@string/enter_shelf_number"
-                    android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <TextView
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:text="@string/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <EditText
-                android:id="@+id/createTaskDescriptionET"
-                android:inputType="text"
-                android:hint="@string/enter_task_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <ImageView
-                android:id="@+id/createTaskBitmapIV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <Button
-                android:layout_marginTop="@dimen/dp16"
-                android:id="@+id/createTaskBtn"
-                android:text="@string/create_task"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
             android:src="@drawable/ic_camera_enhance_black_24dp"
@@ -152,6 +159,17 @@
             app:layout_anchorGravity="top|end"
             app:layout_anchor="@id/createTaskBtn"
             android:id="@+id/createTaskTakePickFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <android.support.design.widget.FloatingActionButton
+            android:src="@drawable/ic_save_black_24dp"
+            app:fabSize="mini"
+            app:elevation="@dimen/dp8"
+            app:layout_anchorGravity="bottom|end"
+            android:visibility="gone"
+            app:layout_anchor="@id/createTaskBtn"
+            android:id="@+id/createTaskSavePickFAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 </android.support.design.widget.CoordinatorLayout>

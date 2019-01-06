@@ -46,11 +46,11 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
             }
         }
         if (taskList[position].taskGotMoney == "1" && taskList[position].taskDone == "0") {
-            holder.cardView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed)
+            holder.itemView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed)
         } else if (taskList[position].taskGotMoney == "0" && taskList[position].taskDone == "1") {
-            holder.cardView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.done)
+            holder.itemView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.done)
         } else if (taskList[position].taskGotMoney == "1" && taskList[position].taskDone == "1") {
-            holder.cardView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed_and_done)
+            holder.itemView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed_and_done)
         }
         holder.taskNumber.text = taskList[position].taskNumber
         holder.dateText.text = Utils.getTimeToEnd(taskList[position].taskStartTime!!.toLong())

@@ -25,14 +25,14 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
 
         mainAddTask.setOnClickListener {
             startActivity(CreateTaskActivity::class.java)
-            finish()
+            //finish()
         }
     }
 
     override fun onStart() {
         super.onStart()
         presenter?.onAttachView(this)
-        if (!SharedPreferencesClass.isItInPreferences(Constants.TASK_TYPE))
+        if (!SharedPreferencesClass.contains(Constants.TASK_TYPE))
             presenter?.getTaskList()
         else
             presenter?.getTaskListWithTaskType(SharedPreferencesClass.getStringFromPreferences(Constants.TASK_TYPE))

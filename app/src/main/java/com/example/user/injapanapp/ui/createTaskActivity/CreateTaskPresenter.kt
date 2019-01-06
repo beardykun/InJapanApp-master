@@ -3,10 +3,12 @@ package com.example.user.injapanapp.ui.createTaskActivity
 import android.content.Intent
 import android.widget.ImageView
 
-class CreateTaskPresenter(private val interactor: ICreateTaskInteractor = CreateTaskInteractor()):
+class CreateTaskPresenter(
+    private var view: ICreateTaskView? = null,
+    private val interactor: ICreateTaskInteractor = CreateTaskInteractor()
+) :
     ICreateTaskPresenter, ICreateTaskInteractor.OnCreateTaskListener {
 
-    private var view: ICreateTaskView? = null
 
     override fun onAttachView(view: ICreateTaskView) {
         this.view = view
@@ -31,11 +33,15 @@ class CreateTaskPresenter(private val interactor: ICreateTaskInteractor = Create
         view?.showError(error, code)
     }
 
-    override fun validateAndInsert(taskNumber: String, taskType: String,
-                                   taskPrice: String, taskShelf: String, taskDescription: String) {
+    override fun validateAndInsert(
+        taskNumber: String, taskType: String,
+        taskPrice: String, taskShelf: String, taskDescription: String
+    ) {
         view?.showProgress()
-        interactor.validateAndInsert(taskNumber, taskType,
-            taskPrice, taskShelf, taskDescription, this)
+        interactor.validateAndInsert(
+            taskNumber, taskType,
+            taskPrice, taskShelf, taskDescription, this
+        )
     }
 
     override fun launchCamera() {
@@ -69,5 +75,6 @@ class CreateTaskPresenter(private val interactor: ICreateTaskInteractor = Create
 
     override fun onProcessAndSetImageSuccess() {
         view?.hideProgress()
+        view?.showSaveFAB()
     }
 }

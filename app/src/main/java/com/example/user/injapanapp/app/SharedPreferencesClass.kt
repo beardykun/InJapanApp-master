@@ -24,6 +24,23 @@ companion object {
         } else "0"
     }
 
+    fun saveBooleanInPreferences(saveString: String, boolean: Boolean) {
+        val context = ThisApplication.getInstance()
+        val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+        editor.putBoolean(saveString, boolean)
+        editor.apply()
+    }
+
+    fun getBooleanFromPreferences(tagString: String): Boolean {
+        var result = false
+        val context = ThisApplication.getInstance()
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        if (preferences.contains(tagString)) {
+            result = preferences.getBoolean(tagString, false)
+        }
+        return result
+    }
+
     fun deleteFromPrefs() {
         val context = ThisApplication.getInstance()
         val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
@@ -31,7 +48,7 @@ companion object {
         editor.apply()
     }
 
-    fun isItInPreferences(saveStr: String): Boolean {
+    fun contains(saveStr: String): Boolean {
         val context = ThisApplication.getInstance()
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         if (preferences.contains(saveStr)) {

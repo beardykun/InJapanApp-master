@@ -1,16 +1,19 @@
 package com.example.user.injapanapp.ui.taskDetailActivity
 
-import com.example.user.injapanapp.database.TaskObject
+import android.support.design.widget.FloatingActionButton
+import android.widget.EditText
 import com.example.user.injapanapp.ui.generalActivity.IGeneralPresenter
 
 interface ITaskDetailPresenter: IGeneralPresenter {
 
     fun onAttachView(view: ITaskDetailView)
 
-    fun getTaskDataFromDb(taskNumber: String)
+    fun getTaskDataFromDb()
 
-    fun updatePaymentStatus(taskObject: TaskObject)
-    fun updateFinishedStatus(taskObject: TaskObject)
-    fun addDescription(taskObject: TaskObject)
-    fun updateDoneStatus(taskObject: TaskObject)
+    fun updatePaymentStatus()
+    fun updateFinishedStatus()
+    fun addDescription(string: String)
+    fun updateDoneStatus()
+    fun startOrStopTimer(floatingActionButton: FloatingActionButton)
+    fun enableDisableEditDescription(detailTaskDescriptionTV: EditText, enabled: Boolean)
 }

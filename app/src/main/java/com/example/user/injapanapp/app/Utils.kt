@@ -11,12 +11,19 @@ class Utils {
 
             val hours = if (days == 0L)
                 past / 60
-            else{
+            else {
                 (past / 60) % days
             }
             val minutes = past % 60
 
             return String.format("$days d: $hours h: $minutes m")
+        }
+
+        fun getTimerTime(startTime: Long): String {
+            val past = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - startTime)
+
+
+            return String.format("$past m")
         }
     }
 }

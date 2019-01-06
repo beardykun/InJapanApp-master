@@ -1,8 +1,9 @@
 package com.example.user.injapanapp.ui.taskDetailActivity
 
 import android.os.Bundle
-import android.text.InputType
+import android.support.v4.content.ContextCompat
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.example.user.injapanapp.R
@@ -10,16 +11,18 @@ import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.database.TaskObject
+import com.example.user.injapanapp.ui.createTaskActivity.BitmapUtils
 import com.example.user.injapanapp.ui.generalActivity.GeneralActivityWithAppBar
+import com.example.user.injapanapp.ui.pictureViewActivity.PictureViewActivity
 import kotlinx.android.synthetic.main.activity_task_detail.*
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.image
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.okButton
 
 class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextView.OnEditorActionListener {
 
     private var presenter: ITaskDetailPresenter? = null
-    private var taskObject: TaskObject? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +34,14 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         super.onStart()
         setOnClicks()
         presenter?.onAttachView(this)
-        presenter?.getTaskDataFromDb(
-            SharedPreferencesClass
-                .getStringFromPreferences(Constants.PASS_TASK_NUMBER_WITH_PREFS)
-        )
+        presenter?.getTaskDataFromDb()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        if (SharedPreferencesClass.getBooleanFromPreferences(Constants.TIMER_IS_WORKING)) {
+            detailStartTimerFAB.image = ContextCompat.getDrawable(this, R.drawable.ic_timer_off_black_24dp)
+        }
     }
 
     override fun onStop() {
@@ -60,55 +66,67 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
     }
 
     override fun loadTaskInfo() {
-        presenter?.getTaskDataFromDb(
-            SharedPreferencesClass.getStringFromPreferences(Constants.PASS_TASK_NUMBER_WITH_PREFS)
-        )
+        presenter?.getTaskDataFromDb()
     }
 
     override fun setTaskData(taskObject: TaskObject) {
-        this.taskObject = taskObject
         detailTaskNumberTV.text = taskObject.taskNumber
         detailTaskTypeTV.text = taskObject.taskType
         if (taskObject.taskGotMoney == "1") {
-            detailTaskPriceTV.setTextColor(resources.getColor(R.color.colorAccent))
+            detailTaskPriceTV.setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
         } else {
-            detailTaskPriceTV.setTextColor(resources.getColor(R.color.black))
+            detailTaskPriceTV.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
-        if (taskObject.taskDone == "1"){
-            detailTaskTypeTV.setTextColor(resources.getColor(R.color.colorAccent))
-        }else{
-            detailTaskTypeTV.setTextColor(resources.getColor(R.color.black))
+        if (taskObject.taskDone == "1") {
+            detailTaskTypeTV.setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
+        } else {
+            detailTaskTypeTV.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
         detailTaskPriceTV.text = taskObject.taskPrice
         detailTaskShelfTV.text = taskObject.taskShelfNumber
         detailTaskEndDateTV.text = Utils.getTimeToEnd(taskObject.taskStartTime!!.toLong())
         detailTaskDescriptionTV.setText(taskObject.taskDescription)
+
+        if (!taskObject.taskPhoto!!.isEmpty()) {
+            val bitmap = BitmapUtils.resamplePic(this.application, taskObject.taskPhoto!!)
+            detailPhotoIV.setImageBitmap(bitmap)
+        }
+        if (taskObject.taskTimePassed != "0") {
+            setTime(taskObject.taskTimePassed!!)
+        }
     }
 
     private fun setOnClicks() {
+        detailStartTimerFAB.setOnClickListener {
+            alert(getString(R.string.start_stop_timer)) {
+                okButton { presenter?.startOrStopTimer(detailStartTimerFAB) }
+                noButton { }
+            }.show()
+        }
+        detailPhotoIV.setOnClickListener { startActivity(PictureViewActivity::class.java) }
         detailTaskPriceTV.setOnClickListener {
-            alert("Payment received?") {
-                okButton { presenter?.updatePaymentStatus(taskObject!!) }
+            alert(getString(R.string.payment_received)) {
+                okButton { presenter?.updatePaymentStatus() }
                 noButton { }
             }.show()
         }
         detailFinishedBtn.setOnClickListener {
-            alert("Close the Task?") {
-                okButton { presenter?.updateFinishedStatus(taskObject!!) }
+            alert(getString(R.string.close_the_task)) {
+                okButton { presenter?.updateFinishedStatus() }
                 noButton { }
             }.show()
         }
         detailTaskTypeTV.setOnClickListener {
-            alert("Task Accomplished?") {
-                okButton { presenter?.updateDoneStatus(taskObject!!) }
+            alert(getString(R.string.task_accomplished)) {
+                okButton { presenter?.updateDoneStatus() }
                 noButton { }
             }.show()
         }
         detailTaskDescriptionTV.setOnEditorActionListener(this)
         detailWhatToDoTV.setOnClickListener {
-            alert("Edit description?") {
+            alert(getString(R.string.edit_description)) {
                 okButton {
-                    editText(true)
+                    presenter?.enableDisableEditDescription(detailTaskDescriptionTV, true)
                 }
                 noButton { }
             }.show()
@@ -117,9 +135,8 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
 
     override fun onEditorAction(textView: TextView, p1: Int, keyEvent: KeyEvent?): Boolean {
         if (p1 == EditorInfo.IME_ACTION_DONE) {
-            taskObject?.taskDescription = textView.text.toString()
-            presenter?.addDescription(taskObject!!)
-            editText(false)
+            presenter?.addDescription(textView.text.toString())
+            presenter?.enableDisableEditDescription(detailTaskDescriptionTV, false)
             return true
         }
         return false
@@ -129,16 +146,9 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         finish()
     }
 
-    private fun editText(boolean: Boolean) {
-        if (boolean) {
-            detailTaskDescriptionTV.isFocusableInTouchMode = true
-            detailTaskDescriptionTV.isFocusable = true
-            detailTaskDescriptionTV.isEnabled = true
-            detailTaskDescriptionTV.inputType = InputType.TYPE_CLASS_TEXT
-        } else {
-            detailTaskDescriptionTV.isFocusable = false
-            detailTaskDescriptionTV.isEnabled = false
-            detailTaskDescriptionTV.inputType = InputType.TYPE_NULL
-        }
+    override fun setTime(time: String) {
+        detailTimerTimeTV.visibility = View.VISIBLE
+        val text = getString(R.string.timer_prefix) + ": " + time
+        detailTimerTimeTV.text = text
     }
 }

@@ -10,12 +10,12 @@ import android.support.v4.content.ContextCompat
 import android.widget.TextView
 import android.widget.Toast
 import com.example.user.injapanapp.R
-import com.example.user.injapanapp.app.ThisApplication
+import com.example.user.injapanapp.app.Constants
+import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.ui.generalActivity.GeneralActivityWithAppBar
 import com.example.user.injapanapp.ui.mainActivity.MainActivity
 import kotlinx.android.synthetic.main.activity_create_task.*
 import org.jetbrains.anko.selector
-import org.jetbrains.anko.toast
 
 class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
 
@@ -44,8 +44,15 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        SharedPreferencesClass.saveBooleanInPreferences(Constants.TAKING_PICKS, false)
+    }
+
     override fun onStop() {
-        presenter?.onDetachView()
+        if(!SharedPreferencesClass.getBooleanFromPreferences(Constants.TAKING_PICKS)) {
+            presenter?.onDetachView()
+        }
         super.onStop()
     }
 
@@ -66,8 +73,10 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
     }
 
     private fun setClickListeners() {
-        createTaskTakePickFAB.setOnClickListener { //checkPermissions()
-            toast("Not implemented yet")
+        createTaskSavePickFAB.setOnClickListener { presenter?.saveImage()
+        createTaskSavePickFAB.hide()}
+        createTaskTakePickFAB.setOnClickListener {
+            checkPermissions()
         }
         createTaskRorSTV.setOnClickListener { getSelector(createTaskRorSTV, listOf("R-", "S-")) }
         createTaskTypeTV.setOnClickListener {
@@ -132,5 +141,9 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
         }else{
             presenter?.deleteImageFile()
         }
+    }
+
+    override fun showSaveFAB() {
+        createTaskSavePickFAB.show()
     }
 }

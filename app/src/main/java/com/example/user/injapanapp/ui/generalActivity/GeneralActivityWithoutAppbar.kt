@@ -3,6 +3,7 @@ package com.example.user.injapanapp.ui.generalActivity
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -51,12 +52,12 @@ abstract class GeneralActivityWithoutAppbar : GeneralActivity() {
         val snackbar = Snackbar
             .make(coordinatorLayout, error, Snackbar.LENGTH_INDEFINITE)
             .setAction(R.string.app_error_dismiss) { }
-        snackbar.view.setBackgroundColor(resources.getColor(R.color.white))
-        snackbar.setActionTextColor(resources.getColor(R.color.black))
+        snackbar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.black))
 
         val sbView = snackbar.view
         val textView = sbView.findViewById<TextView>(android.support.design.R.id.snackbar_text)
-        textView.setTextColor(resources.getColor(R.color.black))
+        textView.setTextColor(ContextCompat.getColor(this, R.color.black))
         textView.maxLines = 10
         snackbar.show()
     }

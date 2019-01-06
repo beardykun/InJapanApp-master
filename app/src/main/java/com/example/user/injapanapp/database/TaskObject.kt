@@ -15,6 +15,9 @@ data class TaskObject(
     @ColumnInfo(name = DatabaseContract.TaskTable.TASK_TYPE) var taskType: String? = "",
     @ColumnInfo(name = DatabaseContract.TaskTable.TASK_COST) var taskPrice: String? = "",
     @ColumnInfo(name = DatabaseContract.TaskTable.TASK_DESCRIPTION) var taskDescription: String? = "",
-    @ColumnInfo(name = DatabaseContract.TaskTable.TASK_FINISHED) var taskFinished: String? = "0"
+    @ColumnInfo(name = DatabaseContract.TaskTable.TASK_FINISHED) var taskFinished: String? = "0",
+    @ColumnInfo(name = DatabaseContract.TaskTable.TASK_PICTURE) var taskPhoto: String? = "",
+    @ColumnInfo(name = DatabaseContract.TaskTable.TASK_START_TIMER) var taskStartTimer: String? = "0",
+    @ColumnInfo(name = DatabaseContract.TaskTable.TASK_TIME_PASSED) var taskTimePassed: String? = "0"
 )
 

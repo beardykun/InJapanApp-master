@@ -16,6 +16,9 @@ class DatabaseContract {
             const val TASK_DESCRIPTION = "taskDescription"
             const val TASK_SHELF = "taskShelf"
             const val TASK_FINISHED = "taskFinished"
+            const val TASK_PICTURE = "taskPicture"
+            const val TASK_START_TIMER = "taskStartTimer"
+            const val TASK_TIME_PASSED = "taskTimePassed"
         }
     }
 }

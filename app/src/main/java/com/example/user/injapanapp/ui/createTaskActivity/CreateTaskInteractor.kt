@@ -5,6 +5,8 @@ import android.graphics.Bitmap
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.widget.ImageView
+import com.example.user.injapanapp.app.Constants
+import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.ThisApplication
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
@@ -12,7 +14,7 @@ import org.jetbrains.anko.imageBitmap
 import java.io.File
 import java.io.IOException
 
-class CreateTaskInteractor : ICreateTaskInteractor {
+class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)) : ICreateTaskInteractor {
 
     private var mTempPhotoPath: String? = null
     private var mResultsBitmap: Bitmap? = null
@@ -31,7 +33,6 @@ class CreateTaskInteractor : ICreateTaskInteractor {
             taskDescription == "" -> listener.onError("Enter task Description", 5)
             else -> {
                 val time = System.currentTimeMillis()
-                val taskObject = TaskObject(null)
                 taskObject.taskNumber = taskNumber
                 taskObject.taskStartTime = time.toString()
                 taskObject.taskType = taskType
@@ -68,6 +69,7 @@ class CreateTaskInteractor : ICreateTaskInteractor {
 
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
 
+                SharedPreferencesClass.saveBooleanInPreferences(Constants.TAKING_PICKS, true)
                 listener.onPictureSuccess(takePictureIntent)
             }
         }
@@ -86,7 +88,8 @@ class CreateTaskInteractor : ICreateTaskInteractor {
 
     override fun saveImage(listener: ICreateTaskInteractor.OnCreateTaskListener) {
         BitmapUtils.deleteImageFile(ThisApplication.getInstance(), mTempPhotoPath!!)
-        BitmapUtils.saveImage(ThisApplication.getInstance(), mResultsBitmap!!)
+        val savedPath = BitmapUtils.saveImage(ThisApplication.getInstance(), mResultsBitmap!!)
+        taskObject.taskPhoto = savedPath
         listener.onSaveAndClearAndDeleteSuccess()
     }
 
