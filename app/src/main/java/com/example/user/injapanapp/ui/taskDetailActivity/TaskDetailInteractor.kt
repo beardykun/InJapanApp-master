@@ -75,6 +75,7 @@ class TaskDetailInteractor(
             floatingActionButton.image = ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
             taskObject?.taskStartTimer = System.currentTimeMillis().toString()
             repository.update(taskObject!!)
+            //todo add timerIsStarted value to fix the bag when saving timer results to different task
             SharedPreferencesClass.saveBooleanInPreferences(Constants.TIMER_IS_WORKING, true)
             Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
         } else {

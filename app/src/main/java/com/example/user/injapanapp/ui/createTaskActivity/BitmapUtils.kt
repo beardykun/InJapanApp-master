@@ -18,13 +18,7 @@ import java.util.*
 
 class BitmapUtils {
     companion object {
-        /**
-         * Resamples the captured photo to fit the screen for better memory usage.
-         *
-         * @param context   The application context.
-         * @param imagePath The path of the photo to be resampled.
-         * @return The resampled bitmap
-         */
+
         fun resamplePic(context: Context, imagePath: String): Bitmap {
 
             // Get device screen size information
@@ -52,12 +46,6 @@ class BitmapUtils {
             return BitmapFactory.decodeFile(imagePath)
         }
 
-        /**
-         * Creates the temporary image file in the cache directory.
-         *
-         * @return The temporary image file.
-         * @throws IOException Thrown if there is an error creating the file
-         */
         @Throws(IOException::class)
         fun createTempImageFile(context: Context): File {
             val timeStamp = SimpleDateFormat(
@@ -74,12 +62,6 @@ class BitmapUtils {
             )
         }
 
-        /**
-         * Deletes image file for a given path.
-         *
-         * @param context   The application context.
-         * @param imagePath The path of the photo to be deleted.
-         */
         fun deleteImageFile(context: Context, imagePath: String): Boolean {
             // Get the file
             val imageFile = File(imagePath)
@@ -96,12 +78,6 @@ class BitmapUtils {
             return deleted
         }
 
-        /**
-         * Helper method for adding the photo to the system photo gallery so it can be accessed
-         * from other apps.
-         *
-         * @param imagePath The path of the saved image
-         */
         private fun galleryAddPic(context: Context, imagePath: String) {
             val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
             val f = File(imagePath)
@@ -110,14 +86,6 @@ class BitmapUtils {
             context.sendBroadcast(mediaScanIntent)
         }
 
-
-        /**
-         * Helper method for saving the image.
-         *
-         * @param context The application context.
-         * @param image   The image to be saved.
-         * @return The path of the saved image.
-         */
         fun saveImage(context: Context, image: Bitmap): String? {
 
             var savedImagePath: String? = null
