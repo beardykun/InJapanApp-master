@@ -5,6 +5,8 @@ import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.text.InputType
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import com.example.user.injapanapp.R
 import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
@@ -12,14 +14,13 @@ import com.example.user.injapanapp.app.ThisApplication
 import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
+import com.example.user.injapanapp.ui.createTaskActivity.BitmapUtils
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.image
 import org.jetbrains.anko.uiThread
 
-class TaskDetailInteractor(
-    private val repository: TaskRepository =
-        TaskRepository(ThisApplication.getInstance())
-) : ITaskDetailInteractor {
+class TaskDetailInteractor(private val repository: TaskRepository = TaskRepository(ThisApplication.getInstance())) :
+    ITaskDetailInteractor {
 
     private var taskObject: TaskObject? = null
 
@@ -28,8 +29,7 @@ class TaskDetailInteractor(
             taskObject =
                     repository.findByTaskNumber(SharedPreferencesClass.getStringFromPreferences(Constants.PASS_TASK_NUMBER_WITH_PREFS))
             uiThread {
-                listener.onSuccess(taskObject!!)
-
+                listener.onSuccess()
             }
         }
     }
@@ -70,17 +70,21 @@ class TaskDetailInteractor(
         Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
     }
 
-    override fun startOrStopTimer(floatingActionButton: FloatingActionButton, listener: ITaskDetailInteractor.OnTaskDetailListener) {
-        if (!SharedPreferencesClass.getBooleanFromPreferences(Constants.TIMER_IS_WORKING)) {
-            floatingActionButton.image = ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
+    override fun startOrStopTimer(
+        floatingActionButton: FloatingActionButton,
+        listener: ITaskDetailInteractor.OnTaskDetailListener
+    ) {
+        if (taskObject?.taskTimerIsRunning == "0") {
+            floatingActionButton.image =
+                    ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
             taskObject?.taskStartTimer = System.currentTimeMillis().toString()
             repository.update(taskObject!!)
-            //todo add timerIsStarted value to fix the bag when saving timer results to different task
-            SharedPreferencesClass.saveBooleanInPreferences(Constants.TIMER_IS_WORKING, true)
+            taskObject?.taskTimerIsRunning = "1"
             Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
         } else {
-            floatingActionButton.image = ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_black_24dp)
-            SharedPreferencesClass.saveBooleanInPreferences(Constants.TIMER_IS_WORKING, false)
+            floatingActionButton.image =
+                    ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_black_24dp)
+            taskObject?.taskTimerIsRunning = "0"
             val time = Utils.getTimerTime(taskObject!!.taskStartTimer!!.toLong())
             taskObject?.taskTimePassed = time
             repository.update(taskObject!!)
@@ -96,6 +100,48 @@ class TaskDetailInteractor(
         } else {
             detailTaskDescriptionTV.isFocusable = false
             detailTaskDescriptionTV.inputType = InputType.TYPE_NULL
+        }
+    }
+
+    override fun setTaskData(
+        detailTaskNumberTV: TextView,
+        detailTaskTypeTV: TextView,
+        detailTaskPriceTV: TextView,
+        detailTaskShelfTV: TextView,
+        detailTaskEndDateTV: TextView,
+        detailTaskDescriptionTV: EditText,
+        detailPhotoIV: ImageView,
+        detailStartTimerFAB: FloatingActionButton,
+        listener: ITaskDetailInteractor.OnTaskDetailListener
+    ) {
+
+        detailTaskNumberTV.text = taskObject?.taskNumber
+        detailTaskTypeTV.text = taskObject?.taskType
+        detailTaskPriceTV.text = taskObject?.taskPrice
+        detailTaskShelfTV.text = taskObject?.taskShelfNumber
+        detailTaskEndDateTV.text = Utils.getTimeToEnd(taskObject?.taskStartTime!!.toLong())
+        detailTaskDescriptionTV.setText(taskObject?.taskDescription)
+
+        if (taskObject?.taskGotMoney == "1") {
+            detailTaskPriceTV.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent))
+        } else {
+            detailTaskPriceTV.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.black))
+        }
+        if (taskObject?.taskDone == "1") {
+            detailTaskTypeTV.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent))
+        } else {
+            detailTaskTypeTV.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.black))
+        }
+        if (!taskObject?.taskPhoto!!.isEmpty()) {
+            val bitmap = BitmapUtils.resamplePic(ThisApplication.getInstance(), taskObject?.taskPhoto!!)
+            detailPhotoIV.setImageBitmap(bitmap)
+        }
+        if (taskObject?.taskTimePassed != "0") {
+            listener.onSuccessTimerStopped(taskObject?.taskTimePassed!!)
+        }
+        if (taskObject?.taskTimerIsRunning == "1") {
+            detailStartTimerFAB.image =
+                    ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
         }
     }
 }

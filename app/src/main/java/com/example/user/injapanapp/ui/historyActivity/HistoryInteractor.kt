@@ -1,6 +1,7 @@
 package com.example.user.injapanapp.ui.historyActivity
 
 import com.example.user.injapanapp.app.ThisApplication
+import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -15,5 +16,11 @@ class HistoryInteractor : IHistoryInteractor {
                 listener.onSuccess(list)
             }
         }
+    }
+
+    override fun deleteTask(taskObject: TaskObject, listener: IHistoryInteractor.OnHistoryListener) {
+        val repository = TaskRepository(ThisApplication.getInstance())
+        repository.delete(taskObject)
+        listener.onSuccessDelete()
     }
 }

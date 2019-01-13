@@ -7,8 +7,10 @@ interface IMainInteractor {
 
     interface OnMainListener : IGeneralInteractorListener {
         fun onSuccess(list: List<TaskObject>)
+        fun onSuccessDeleted()
     }
 
     fun getTaskList(listener: OnMainListener)
     fun getTaskListWithTaskType(stringFromPreferences: String, listener: OnMainListener)
+    fun deleteTask(taskObject: TaskObject, listener: OnMainListener)
 }

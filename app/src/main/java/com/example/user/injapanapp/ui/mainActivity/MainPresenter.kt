@@ -30,8 +30,18 @@ class MainPresenter(private val interactor: IMainInteractor = MainInteractor()) 
         view?.setAdapter(list)
     }
 
+    override fun onSuccessDeleted() {
+        view?.hideProgress()
+        view?.getList()
+    }
+
     override fun getTaskListWithTaskType(stringFromPreferences: String) {
         view?.showProgress()
         interactor.getTaskListWithTaskType(stringFromPreferences, this)
+    }
+
+    override fun deleteTask(taskObject: TaskObject) {
+        view?.showProgress()
+        interactor.deleteTask(taskObject, this)
     }
 }

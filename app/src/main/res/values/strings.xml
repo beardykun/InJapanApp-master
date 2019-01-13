@@ -41,4 +41,6 @@
     <string name="task_accomplished">Task Accomplished?</string>
     <string name="edit_description">Edit description?</string>
     <string name="enter_description">Enter Description</string>
+    <string name="delete_task">Delete This Task?</string>
+    <string name="task_num_hint">Enter task number</string>
 </resources>

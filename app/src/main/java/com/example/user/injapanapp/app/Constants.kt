@@ -10,7 +10,5 @@ class Constants {
         const val TASK_TYPE = "TASK_TYPE"
 
         const val TAKING_PICKS = "TAKING_PICKS"
-
-        const val TIMER_IS_WORKING = "TIMER_IS_WORKING"
     }
 }

@@ -1,5 +1,9 @@
 package com.example.user.injapanapp.app
 
+import android.content.Context
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 import java.util.concurrent.TimeUnit
 
 class Utils {
@@ -24,6 +28,13 @@ class Utils {
 
 
             return String.format("$past m")
+        }
+
+        fun getAlert(context: Context, message: String, func: () -> Unit?) {
+            context.alert(message) {
+                yesButton { func() }
+                noButton { }
+            }.show()
         }
     }
 }

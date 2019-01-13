@@ -5,4 +5,5 @@ import com.example.user.injapanapp.ui.generalActivity.IGeneralView
 
 interface IMainView: IGeneralView {
     fun setAdapter(list: List<TaskObject>)
+    fun getList()
 }

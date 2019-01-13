@@ -1,6 +1,7 @@
 package com.example.user.injapanapp.ui.mainActivity
 
 import com.example.user.injapanapp.app.ThisApplication
+import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -26,5 +27,10 @@ class MainInteractor : IMainInteractor {
                 listener.onSuccess(list)
             }
         }
+    }
+    override fun deleteTask(taskObject: TaskObject, listener: IMainInteractor.OnMainListener) {
+        val repository = TaskRepository(ThisApplication.getInstance())
+        repository.delete(taskObject)
+        listener.onSuccessDeleted()
     }
 }

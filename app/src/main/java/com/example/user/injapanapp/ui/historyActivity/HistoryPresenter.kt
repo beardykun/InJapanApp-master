@@ -20,6 +20,11 @@ class HistoryPresenter(private val interactor: IHistoryInteractor = HistoryInter
         view?.getAllTasks(list)
     }
 
+    override fun onSuccessDelete() {
+        view?.hideProgress()
+        view?.getList()
+    }
+
     override fun onError(error: String?, code: Int) {
         view?.hideProgress()
     }
@@ -27,5 +32,10 @@ class HistoryPresenter(private val interactor: IHistoryInteractor = HistoryInter
     override fun getAllTasks() {
         view?.showProgress()
         interactor.getAllTasks(this)
+    }
+
+    override fun deleteTask(taskObject: TaskObject) {
+        view?.showProgress()
+        interactor.deleteTask(taskObject, this)
     }
 }

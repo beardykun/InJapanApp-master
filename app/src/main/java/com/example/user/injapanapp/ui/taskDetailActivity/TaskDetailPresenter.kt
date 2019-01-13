@@ -2,7 +2,8 @@ package com.example.user.injapanapp.ui.taskDetailActivity
 
 import android.support.design.widget.FloatingActionButton
 import android.widget.EditText
-import com.example.user.injapanapp.database.TaskObject
+import android.widget.ImageView
+import android.widget.TextView
 
 class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDetailInteractor()) :
     ITaskDetailPresenter, ITaskDetailInteractor.OnTaskDetailListener {
@@ -17,9 +18,9 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
         this.view = null
     }
 
-    override fun onSuccess(taskObject: TaskObject) {
+    override fun onSuccess() {
         view?.hideProgress()
-        view?.setTaskData(taskObject)
+        view?.setTaskData()
     }
 
     override fun onSuccessUpdatePay() {
@@ -74,5 +75,17 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
 
     override fun enableDisableEditDescription(detailTaskDescriptionTV: EditText, enabled: Boolean) {
         interactor.enableDisableEditDescription(detailTaskDescriptionTV, enabled)
+    }
+
+    override fun setTaskData(
+        detailTaskNumberTV: TextView, detailTaskTypeTV: TextView, detailTaskPriceTV: TextView,
+        detailTaskShelfTV: TextView, detailTaskEndDateTV: TextView, detailTaskDescriptionTV: EditText,
+        detailPhotoIV: ImageView, detailStartTimerFAB: FloatingActionButton
+    ) {
+        interactor.setTaskData(
+            detailTaskNumberTV, detailTaskTypeTV, detailTaskPriceTV,
+            detailTaskShelfTV, detailTaskEndDateTV, detailTaskDescriptionTV,
+            detailPhotoIV, detailStartTimerFAB, this
+        )
     }
 }

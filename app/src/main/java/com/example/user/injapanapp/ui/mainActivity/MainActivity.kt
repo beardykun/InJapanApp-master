@@ -4,8 +4,10 @@ import android.os.Bundle
 import com.example.user.injapanapp.R
 import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
+import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
+import com.example.user.injapanapp.ui.adapter.MainAdapter
 import com.example.user.injapanapp.ui.createTaskActivity.CreateTaskActivity
 import com.example.user.injapanapp.ui.generalActivity.GeneralActivityWithMenu
 import com.example.user.injapanapp.ui.taskDetailActivity.TaskDetailActivity
@@ -31,11 +33,7 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
 
     override fun onStart() {
         super.onStart()
-        presenter?.onAttachView(this)
-        if (!SharedPreferencesClass.contains(Constants.TASK_TYPE))
-            presenter?.getTaskList()
-        else
-            presenter?.getTaskListWithTaskType(SharedPreferencesClass.getStringFromPreferences(Constants.TASK_TYPE))
+        getList()
     }
 
     override fun onStop() {
@@ -64,9 +62,23 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
         startActivity(TaskDetailActivity::class.java)
     }
 
+    override fun onDeleteTaskClick(taskObject: TaskObject) {
+        Utils.getAlert(this, getString(R.string.delete_task), fun() {
+            presenter?.deleteTask(taskObject)
+        })
+    }
+
     override fun setAdapter(list: List<TaskObject>) {
         val adapter = MainAdapter(list)
         adapter.setOnMainTaskListener(this)
         mainRecyclerView.adapter = adapter
+    }
+
+    override fun getList() {
+        presenter?.onAttachView(this)
+        if (!SharedPreferencesClass.contains(Constants.TASK_TYPE))
+            presenter?.getTaskList()
+        else
+            presenter?.getTaskListWithTaskType(SharedPreferencesClass.getStringFromPreferences(Constants.TASK_TYPE))
     }
 }

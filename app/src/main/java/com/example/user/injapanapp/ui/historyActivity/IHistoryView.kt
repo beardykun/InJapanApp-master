@@ -6,4 +6,5 @@ import com.example.user.injapanapp.ui.generalActivity.IGeneralView
 interface IHistoryView: IGeneralView {
 
     fun getAllTasks(list: List<TaskObject>)
+    fun getList()
 }
