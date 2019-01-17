@@ -43,4 +43,6 @@
     <string name="enter_description">Enter Description</string>
     <string name="delete_task">Delete This Task?</string>
     <string name="task_num_hint">Enter task number</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="replace_task">Update existing task?</string>
 </resources>

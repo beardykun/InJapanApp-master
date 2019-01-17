@@ -17,4 +17,5 @@ interface ICreateTaskPresenter : IGeneralPresenter {
     fun processAndSetImage(imageView: ImageView)
     fun saveImage()
     fun clearImage()
+    fun replaceTask()
 }

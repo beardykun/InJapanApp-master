@@ -33,6 +33,11 @@ class CreateTaskPresenter(
         view?.showError(error, code)
     }
 
+    override fun onErrorTaskInside() {
+        view?.hideProgress()
+        view?.showReplaceDialog()
+    }
+
     override fun validateAndInsert(
         taskNumber: String, taskType: String,
         taskPrice: String, taskShelf: String, taskDescription: String
@@ -67,6 +72,11 @@ class CreateTaskPresenter(
     override fun clearImage() {
         view?.showProgress()
         interactor.clearImage(this)
+    }
+
+    override fun replaceTask() {
+        view?.showProgress()
+        interactor.replaceTask(this)
     }
 
     override fun onSaveAndClearAndDeleteSuccess() {

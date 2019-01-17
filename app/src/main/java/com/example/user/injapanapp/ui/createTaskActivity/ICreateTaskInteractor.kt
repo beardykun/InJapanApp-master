@@ -12,6 +12,7 @@ interface ICreateTaskInteractor {
         fun onPictureSuccess(intent: Intent)
         fun onSaveAndClearAndDeleteSuccess()
         fun onProcessAndSetImageSuccess()
+        fun onErrorTaskInside()
     }
 
     fun validateAndInsert(
@@ -25,4 +26,5 @@ interface ICreateTaskInteractor {
     fun processAndSetImage(imageView: ImageView, listener: OnCreateTaskListener)
     fun saveImage(listener: OnCreateTaskListener)
     fun clearImage(listener: OnCreateTaskListener)
+    fun replaceTask(listener: OnCreateTaskListener)
 }

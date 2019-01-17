@@ -17,7 +17,9 @@ import com.example.user.injapanapp.database.TaskRepository
 import com.example.user.injapanapp.ui.createTaskActivity.BitmapUtils
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.image
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
+import java.io.FileNotFoundException
 
 class TaskDetailInteractor(private val repository: TaskRepository = TaskRepository(ThisApplication.getInstance())) :
     ITaskDetailInteractor {
@@ -133,8 +135,13 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
             detailTaskTypeTV.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.black))
         }
         if (!taskObject?.taskPhoto!!.isEmpty()) {
-            val bitmap = BitmapUtils.resamplePic(ThisApplication.getInstance(), taskObject?.taskPhoto!!)
-            detailPhotoIV.setImageBitmap(bitmap)
+            try {
+                val bitmap = BitmapUtils.resamplePic(ThisApplication.getInstance(), taskObject?.taskPhoto!!)
+                detailPhotoIV.setImageBitmap(bitmap)
+            }catch(e: IllegalStateException){
+                e.printStackTrace()
+                ThisApplication.getInstance().toast("Image was deleted")
+            }
         }
         if (taskObject?.taskTimePassed != "0") {
             listener.onSuccessTimerStopped(taskObject?.taskTimePassed!!)

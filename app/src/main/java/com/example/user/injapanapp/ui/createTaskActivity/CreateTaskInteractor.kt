@@ -2,6 +2,7 @@ package com.example.user.injapanapp.ui.createTaskActivity
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Handler
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.widget.ImageView
@@ -10,7 +11,9 @@ import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.ThisApplication
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.imageBitmap
+import org.jetbrains.anko.uiThread
 import java.io.File
 import java.io.IOException
 
@@ -46,8 +49,23 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
 
     private fun insert(taskObject: TaskObject, listener: ICreateTaskInteractor.OnCreateTaskListener) {
         val repository = TaskRepository(ThisApplication.getInstance())
-        repository.insert(taskObject)
-        listener.onSuccess()
+        doAsync {
+            val checkTaskExists = repository.findByTaskNumber(taskObject.taskNumber)
+            uiThread {
+                if (checkTaskExists == null) {
+                    repository.insert(taskObject)
+                    listener.onSuccess()
+                } else {
+                    listener.onErrorTaskInside()
+                }
+            }
+        }
+    }
+
+    override fun replaceTask(listener: ICreateTaskInteractor.OnCreateTaskListener) {
+        val repository = TaskRepository(ThisApplication.getInstance())
+        repository.update(taskObject)
+        Handler().postDelayed({ listener.onSuccess() }, 300)
     }
 
     override fun launchCamera(listener: ICreateTaskInteractor.OnCreateTaskListener) {

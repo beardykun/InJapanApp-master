@@ -8,4 +8,5 @@ interface ICreateTaskView: IGeneralView {
     fun finishActivity()
     fun startPictureActivity(intent: Intent)
     fun showSaveFAB()
+    fun showReplaceDialog()
 }

@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.example.user.injapanapp.R
 import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
+import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.ui.generalActivity.GeneralActivityWithAppBar
 import com.example.user.injapanapp.ui.mainActivity.MainActivity
 import kotlinx.android.synthetic.main.activity_create_task.*
@@ -50,7 +51,7 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
     }
 
     override fun onStop() {
-        if(!SharedPreferencesClass.getBooleanFromPreferences(Constants.TAKING_PICKS)) {
+        if (!SharedPreferencesClass.getBooleanFromPreferences(Constants.TAKING_PICKS)) {
             presenter?.onDetachView()
         }
         super.onStop()
@@ -73,8 +74,10 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
     }
 
     private fun setClickListeners() {
-        createTaskSavePickFAB.setOnClickListener { presenter?.saveImage()
-        createTaskSavePickFAB.hide()}
+        createTaskSavePickFAB.setOnClickListener {
+            presenter?.saveImage()
+            createTaskSavePickFAB.hide()
+        }
         createTaskTakePickFAB.setOnClickListener {
             checkPermissions()
         }
@@ -125,7 +128,7 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     presenter?.launchCamera()
                 } else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -136,14 +139,18 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             presenter?.processAndSetImage(createTaskBitmapIV)
-        }else{
+        } else {
             presenter?.deleteImageFile()
         }
     }
 
     override fun showSaveFAB() {
         createTaskSavePickFAB.show()
+    }
+
+    override fun showReplaceDialog() {
+        Utils.getAlert(this, getString(R.string.replace_task), fun(){presenter?.replaceTask()})
     }
 }
