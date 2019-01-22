@@ -35,8 +35,9 @@
                         android:id="@+id/createTaskRorSTV"
                         android:text="@string/r"
                         android:textStyle="bold"
-                        android:layout_weight="0.1"
+                        android:layout_weight="0.2"
                         android:layout_width="0dp"
+                        android:gravity="center"
                         android:layout_height="wrap_content"/>
 
 

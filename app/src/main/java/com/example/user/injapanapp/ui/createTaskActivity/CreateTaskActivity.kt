@@ -153,4 +153,8 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
     override fun showReplaceDialog() {
         Utils.getAlert(this, getString(R.string.replace_task), fun(){presenter?.replaceTask()})
     }
+
+    override fun onBackPressed() {
+        Utils.getAlert(this, getString(R.string.abort_task_creation), fun(){super.onBackPressed()})
+    }
 }

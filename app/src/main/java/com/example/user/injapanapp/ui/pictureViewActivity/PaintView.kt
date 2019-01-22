@@ -57,7 +57,7 @@ class PaintView(context: Context, attributeSet: AttributeSet? = null) : View(con
 
             mCanvas?.drawPath(fp.path, mPaint)
         }
-        canvas.drawBitmap(mBitmap, 0f, 0f, mBitmapPaint)
+        canvas.drawBitmap(mBitmap!!, 0f, 0f, mBitmapPaint)
         canvas.restore()
     }
 

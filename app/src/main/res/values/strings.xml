@@ -45,4 +45,5 @@
     <string name="task_num_hint">Enter task number</string>
     <string name="permission_denied">Permission denied</string>
     <string name="replace_task">Update existing task?</string>
+    <string name="abort_task_creation">Abort task creation?</string>
 </resources>

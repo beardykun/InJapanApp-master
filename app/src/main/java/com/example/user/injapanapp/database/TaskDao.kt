@@ -17,7 +17,6 @@ interface TaskDao {
     @Query("SELECT * FROM taskTable WHERE taskNumber LIKE :number LIMIT 1")
     fun findByTaskNumber(number: String): TaskObject
 
-    //todo check if exists
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg taskObject: TaskObject)
 
