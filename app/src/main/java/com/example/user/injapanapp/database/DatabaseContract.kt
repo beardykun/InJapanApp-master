@@ -20,6 +20,7 @@ class DatabaseContract {
             const val TASK_START_TIMER = "taskStartTimer"
             const val TASK_TIME_PASSED = "taskTimePassed"
             const val TASK_TIMER_IS_RUNNING = "taskTimerIsRunning"
+            const val TASK_PRIORITY = "taskPriority"
         }
     }
 }

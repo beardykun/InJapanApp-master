@@ -26,6 +26,7 @@ interface ITaskDetailPresenter: IGeneralPresenter {
         detailTaskEndDateTV: TextView,
         detailTaskDescriptionTV: EditText,
         detailPhotoIV: ImageView,
+        detailPriorityTV: TextView,
         detailStartTimerFAB: FloatingActionButton
     )
 }

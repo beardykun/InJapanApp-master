@@ -48,6 +48,11 @@
             android:icon="@drawable/ic_event_note_black_24dp"
             android:title="@string/history"
             app:showAsAction="withText" />
+
+        <item
+            android:id="@+id/horyu"
+            android:title="@string/horyu"
+            app:showAsAction="withText"/>
     </group>
 
 </menu>

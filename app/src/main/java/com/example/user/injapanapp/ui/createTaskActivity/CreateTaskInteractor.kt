@@ -25,7 +25,8 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
 
     override fun validateAndInsert(
         taskNumber: String, taskType: String,
-        taskPrice: String, taskShelf: String, taskDescription: String,
+        taskPrice: String, taskShelf: String,
+        taskDescription: String, taskPriority: String,
         listener: ICreateTaskInteractor.OnCreateTaskListener
     ) {
         when {
@@ -42,6 +43,7 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
                 taskObject.taskPrice = taskPrice
                 taskObject.taskShelfNumber = taskShelf
                 taskObject.taskDescription = taskDescription
+                taskObject.taskPriority = taskPriority
                 insert(taskObject, listener)
             }
         }

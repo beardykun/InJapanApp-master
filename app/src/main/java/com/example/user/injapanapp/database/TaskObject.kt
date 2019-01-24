@@ -19,6 +19,7 @@ data class TaskObject(
     @ColumnInfo(name = DatabaseContract.TaskTable.TASK_PICTURE) var taskPhoto: String? = "",
     @ColumnInfo(name = DatabaseContract.TaskTable.TASK_START_TIMER) var taskStartTimer: String? = "0",
     @ColumnInfo(name = DatabaseContract.TaskTable.TASK_TIME_PASSED) var taskTimePassed: String? = "0",
-    @ColumnInfo(name = DatabaseContract.TaskTable.TASK_TIMER_IS_RUNNING) var taskTimerIsRunning: String? = "0"
+    @ColumnInfo(name = DatabaseContract.TaskTable.TASK_TIMER_IS_RUNNING) var taskTimerIsRunning: String? = "0",
+    @ColumnInfo(name = DatabaseContract.TaskTable.TASK_PRIORITY) var taskPriority: String? = "NORMAL"
 )
 

@@ -92,12 +92,15 @@ abstract class GeneralActivityWithMenu : GeneralActivity(), NavigationView.OnNav
             R.id.history ->{
                 startActivity(HistoryActivity::class.java)
             }
+            R.id.horyu ->{
+                startActivity(MainActivity::class.java)
+                SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, "保留リスト")
+            }
             else -> {
                 SharedPreferencesClass.deleteFromPrefs()
                 startActivity(MainActivity::class.java)
             }
         }
-
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

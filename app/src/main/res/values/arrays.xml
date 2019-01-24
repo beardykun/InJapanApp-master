@@ -7,6 +7,7 @@
         <item>TRASH</item>
         <item>SEPARATE AND TRASH</item>
         <item>CHECK</item>
+        <item>保留リスト</item>
     </string-array>
 
     <string-array name="prices">
@@ -16,5 +17,11 @@
         <item>3000</item>
         <item>4000</item>
         <item>5000</item>
+    </string-array>
+
+    <string-array name="priority">
+        <item>LOW</item>
+        <item>HIGH</item>
+        <item>IMMEDIATE</item>
     </string-array>
 </resources>

@@ -26,6 +26,7 @@ interface ITaskDetailInteractor {
     fun setTaskData(
         detailTaskNumberTV: TextView, detailTaskTypeTV: TextView, detailTaskPriceTV: TextView,
         detailTaskShelfTV: TextView, detailTaskEndDateTV: TextView, detailTaskDescriptionTV: EditText,
-        detailPhotoIV: ImageView, detailStartTimerFAB: FloatingActionButton, listener: OnTaskDetailListener
+        detailPhotoIV: ImageView, detailPriorityTV: TextView, detailStartTimerFAB: FloatingActionButton,
+        listener: OnTaskDetailListener
     )
 }

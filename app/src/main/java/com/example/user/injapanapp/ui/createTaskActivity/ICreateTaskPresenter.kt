@@ -9,7 +9,8 @@ interface ICreateTaskPresenter : IGeneralPresenter {
 
     fun validateAndInsert(
         taskNumber: String, taskType: String,
-        taskPrice: String, taskShelf: String, taskDescription: String
+        taskPrice: String, taskShelf: String,
+        taskDescription: String, taskPriority: String
     )
 
     fun launchCamera()

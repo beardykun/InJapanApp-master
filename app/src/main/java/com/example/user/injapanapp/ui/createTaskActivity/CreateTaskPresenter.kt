@@ -40,12 +40,15 @@ class CreateTaskPresenter(
 
     override fun validateAndInsert(
         taskNumber: String, taskType: String,
-        taskPrice: String, taskShelf: String, taskDescription: String
+        taskPrice: String, taskShelf: String,
+        taskDescription: String, taskPriority: String
     ) {
         view?.showProgress()
         interactor.validateAndInsert(
             taskNumber, taskType,
-            taskPrice, taskShelf, taskDescription, this
+            taskPrice, taskShelf,
+            taskDescription, taskPriority,
+            this
         )
     }
 

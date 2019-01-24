@@ -8,4 +8,7 @@
     <color name="payed">#EF9A9A</color>
     <color name="done">#CE93D8</color>
     <color name="payed_and_done">#90CAF9</color>
+    <color name="low">#0D47A1</color>
+    <color name="HEIGHT">#FF6D00</color>
+    <color name="IMMEDIATE">#D50000</color>
 </resources>

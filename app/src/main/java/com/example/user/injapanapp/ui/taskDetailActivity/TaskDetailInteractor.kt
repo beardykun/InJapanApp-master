@@ -29,7 +29,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
     override fun getTaskDataFromDb(listener: ITaskDetailInteractor.OnTaskDetailListener) {
         doAsync {
             taskObject =
-                    repository.findByTaskNumber(SharedPreferencesClass.getStringFromPreferences(Constants.PASS_TASK_NUMBER_WITH_PREFS))
+                repository.findByTaskNumber(SharedPreferencesClass.getStringFromPreferences(Constants.PASS_TASK_NUMBER_WITH_PREFS))
             uiThread {
                 listener.onSuccess()
             }
@@ -78,14 +78,14 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
     ) {
         if (taskObject?.taskTimerIsRunning == "0") {
             floatingActionButton.image =
-                    ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
+                ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
             taskObject?.taskStartTimer = System.currentTimeMillis().toString()
             repository.update(taskObject!!)
             taskObject?.taskTimerIsRunning = "1"
             Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
         } else {
             floatingActionButton.image =
-                    ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_black_24dp)
+                ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_black_24dp)
             taskObject?.taskTimerIsRunning = "0"
             val time = Utils.getTimerTime(taskObject!!.taskStartTimer!!.toLong())
             taskObject?.taskTimePassed = time
@@ -113,16 +113,18 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         detailTaskEndDateTV: TextView,
         detailTaskDescriptionTV: EditText,
         detailPhotoIV: ImageView,
+        detailPriorityTV: TextView,
         detailStartTimerFAB: FloatingActionButton,
         listener: ITaskDetailInteractor.OnTaskDetailListener
     ) {
-
+//todo change priority from detail activity
         detailTaskNumberTV.text = taskObject?.taskNumber
         detailTaskTypeTV.text = taskObject?.taskType
         detailTaskPriceTV.text = taskObject?.taskPrice
         detailTaskShelfTV.text = taskObject?.taskShelfNumber
         detailTaskEndDateTV.text = Utils.getTimeToEnd(taskObject?.taskStartTime!!.toLong())
         detailTaskDescriptionTV.setText(taskObject?.taskDescription)
+        detailPriorityTV.text = taskObject?.taskPriority
 
         if (taskObject?.taskGotMoney == "1") {
             detailTaskPriceTV.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent))
@@ -138,7 +140,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
             try {
                 val bitmap = BitmapUtils.resamplePic(ThisApplication.getInstance(), taskObject?.taskPhoto!!)
                 detailPhotoIV.setImageBitmap(bitmap)
-            }catch(e: IllegalStateException){
+            } catch (e: IllegalStateException) {
                 e.printStackTrace()
                 ThisApplication.getInstance().toast("Image was deleted")
             }
@@ -148,7 +150,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         }
         if (taskObject?.taskTimerIsRunning == "1") {
             detailStartTimerFAB.image =
-                    ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
+                ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
         }
     }
 }

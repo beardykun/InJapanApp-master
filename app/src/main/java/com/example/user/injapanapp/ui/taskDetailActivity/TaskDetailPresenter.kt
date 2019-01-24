@@ -80,12 +80,12 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
     override fun setTaskData(
         detailTaskNumberTV: TextView, detailTaskTypeTV: TextView, detailTaskPriceTV: TextView,
         detailTaskShelfTV: TextView, detailTaskEndDateTV: TextView, detailTaskDescriptionTV: EditText,
-        detailPhotoIV: ImageView, detailStartTimerFAB: FloatingActionButton
+        detailPhotoIV: ImageView, detailPriorityTV: TextView, detailStartTimerFAB: FloatingActionButton
     ) {
         interactor.setTaskData(
             detailTaskNumberTV, detailTaskTypeTV, detailTaskPriceTV,
             detailTaskShelfTV, detailTaskEndDateTV, detailTaskDescriptionTV,
-            detailPhotoIV, detailStartTimerFAB, this
+            detailPhotoIV, detailPriorityTV, detailStartTimerFAB, this
         )
     }
 }

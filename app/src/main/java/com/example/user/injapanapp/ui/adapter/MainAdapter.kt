@@ -1,9 +1,7 @@
 package com.example.user.injapanapp.ui.adapter
 
-import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.util.TimeUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +14,7 @@ import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.database.TaskObject
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.find
+import org.jetbrains.anko.textColor
 import java.util.concurrent.TimeUnit
 
 class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
@@ -58,7 +57,11 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
                 listener?.onDeleteTaskClick(taskListToShow[holder.adapterPosition])
                 true
             }
+            setStuff(holder, position)
         }
+    }
+
+    private fun setStuff(holder: MainViewHolder, position: Int) {
         if (taskListToShow.isNotEmpty()) {
             if (taskListToShow[position].taskGotMoney == "1" && taskList[position].taskDone == "0") {
                 holder.itemView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed)
@@ -66,20 +69,26 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
                 holder.itemView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.done)
             } else if (taskListToShow[position].taskGotMoney == "1" && taskList[position].taskDone == "1") {
                 holder.itemView.backgroundColor =
-                        ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed_and_done)
+                    ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed_and_done)
             }
         }
         holder.taskNumber.text = taskListToShow[position].taskNumber
-        setDateColor(holder, taskList[position].taskStartTime!!.toLong())
         holder.dateText.text = Utils.getTimeToEnd(taskList[position].taskStartTime!!.toLong())
         holder.taskText.text = taskListToShow[position].taskType
-    }
-
-    private fun setDateColor(holder: MainViewHolder, long: Long){
-        when(TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - long)){
+        when (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - taskList[position].taskStartTime!!.toLong())) {
             1L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed))
             2L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.done))
-            3L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent))
+            3L -> holder.dateText.setTextColor(
+                ContextCompat.getColor(
+                    ThisApplication.getInstance(),
+                    R.color.colorAccent
+                )
+            )
+        }
+        when(taskList[position].taskPriority){
+            "LOW" -> holder.taskNumber.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.low)
+            "HIGH" -> holder.taskNumber.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.HEIGHT)
+            "IMMEDIATE" -> holder.taskNumber.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.IMMEDIATE)
         }
     }
 

@@ -56,7 +56,8 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
     override fun setTaskData() {
         presenter?.setTaskData(
             detailTaskNumberTV, detailTaskTypeTV, detailTaskPriceTV, detailTaskShelfTV,
-            detailTaskEndDateTV, detailTaskDescriptionTV, detailPhotoIV, detailStartTimerFAB
+            detailTaskEndDateTV, detailTaskDescriptionTV, detailPhotoIV, detailPriorityTV,
+            detailStartTimerFAB
         )
 
     }
