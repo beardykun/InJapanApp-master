@@ -63,14 +63,7 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
 
     private fun setStuff(holder: MainViewHolder, position: Int) {
         if (taskListToShow.isNotEmpty()) {
-            if (taskListToShow[position].taskGotMoney == "1" && taskList[position].taskDone == "0") {
-                holder.itemView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed)
-            } else if (taskListToShow[position].taskGotMoney == "0" && taskList[position].taskDone == "1") {
-                holder.itemView.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.done)
-            } else if (taskListToShow[position].taskGotMoney == "1" && taskList[position].taskDone == "1") {
-                holder.itemView.backgroundColor =
-                    ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed_and_done)
-            }
+            Utils.setComplitionColor(taskListToShow[position].taskGotMoney!!, taskList[position].taskDone, holder.itemView)
         }
         holder.taskNumber.text = taskListToShow[position].taskNumber
         holder.dateText.text = Utils.getTimeToEnd(taskList[position].taskStartTime!!.toLong())
@@ -78,18 +71,10 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
         when (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - taskList[position].taskStartTime!!.toLong())) {
             1L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed))
             2L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.done))
-            3L -> holder.dateText.setTextColor(
-                ContextCompat.getColor(
-                    ThisApplication.getInstance(),
-                    R.color.colorAccent
-                )
+            3L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent)
             )
         }
-        when(taskList[position].taskPriority){
-            "LOW" -> holder.taskNumber.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.low)
-            "HIGH" -> holder.taskNumber.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.HEIGHT)
-            "IMMEDIATE" -> holder.taskNumber.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.IMMEDIATE)
-        }
+        Utils.setPriorityColors(holder.taskNumber, taskList[position].taskPriority!!)
     }
 
     class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -38,6 +38,11 @@
                 android:id="@+id/check"
                 android:title="@string/check"
                 app:showAsAction="withText"/>
+
+        <item
+                android:id="@+id/horyu"
+                android:title="@string/horyu"
+                app:showAsAction="withText"/>
     </group>
 
     <group
@@ -49,10 +54,6 @@
             android:title="@string/history"
             app:showAsAction="withText" />
 
-        <item
-            android:id="@+id/horyu"
-            android:title="@string/horyu"
-            app:showAsAction="withText"/>
     </group>
 
 </menu>

@@ -29,4 +29,6 @@ interface ITaskDetailInteractor {
         detailPhotoIV: ImageView, detailPriorityTV: TextView, detailStartTimerFAB: FloatingActionButton,
         listener: OnTaskDetailListener
     )
+
+    fun updatePriority(priority: String, listener: OnTaskDetailListener)
 }

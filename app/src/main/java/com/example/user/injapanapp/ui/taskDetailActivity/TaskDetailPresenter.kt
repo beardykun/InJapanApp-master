@@ -82,10 +82,16 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
         detailTaskShelfTV: TextView, detailTaskEndDateTV: TextView, detailTaskDescriptionTV: EditText,
         detailPhotoIV: ImageView, detailPriorityTV: TextView, detailStartTimerFAB: FloatingActionButton
     ) {
+        view?.showProgress()
         interactor.setTaskData(
             detailTaskNumberTV, detailTaskTypeTV, detailTaskPriceTV,
             detailTaskShelfTV, detailTaskEndDateTV, detailTaskDescriptionTV,
             detailPhotoIV, detailPriorityTV, detailStartTimerFAB, this
         )
+    }
+
+    override fun updatePriority(priority: String) {
+        view?.showProgress()
+        interactor.updatePriority(priority, this)
     }
 }

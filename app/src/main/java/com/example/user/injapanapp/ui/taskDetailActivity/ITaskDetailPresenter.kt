@@ -29,4 +29,6 @@ interface ITaskDetailPresenter: IGeneralPresenter {
         detailPriorityTV: TextView,
         detailStartTimerFAB: FloatingActionButton
     )
+
+     fun updatePriority(priority: String)
 }

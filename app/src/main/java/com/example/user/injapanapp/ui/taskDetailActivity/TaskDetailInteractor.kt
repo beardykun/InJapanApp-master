@@ -104,7 +104,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
             detailTaskDescriptionTV.inputType = InputType.TYPE_NULL
         }
     }
-
+//todo change picture resize type
     override fun setTaskData(
         detailTaskNumberTV: TextView,
         detailTaskTypeTV: TextView,
@@ -117,7 +117,6 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         detailStartTimerFAB: FloatingActionButton,
         listener: ITaskDetailInteractor.OnTaskDetailListener
     ) {
-//todo change priority from detail activity
         detailTaskNumberTV.text = taskObject?.taskNumber
         detailTaskTypeTV.text = taskObject?.taskType
         detailTaskPriceTV.text = taskObject?.taskPrice
@@ -125,6 +124,8 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         detailTaskEndDateTV.text = Utils.getTimeToEnd(taskObject?.taskStartTime!!.toLong())
         detailTaskDescriptionTV.setText(taskObject?.taskDescription)
         detailPriorityTV.text = taskObject?.taskPriority
+        Utils.setPriorityColors(detailPriorityTV, taskObject?.taskPriority!!)
+        Utils.setComplitionColor(taskObject?.taskGotMoney!!, taskObject?.taskDone!!, detailTaskNumberTV)
 
         if (taskObject?.taskGotMoney == "1") {
             detailTaskPriceTV.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent))
@@ -151,6 +152,16 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         if (taskObject?.taskTimerIsRunning == "1") {
             detailStartTimerFAB.image =
                 ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
+        }
+    }
+
+    override fun updatePriority(priority: String, listener: ITaskDetailInteractor.OnTaskDetailListener) {
+        if (!taskObject?.taskPriority.equals(priority)) {
+            taskObject?.taskPriority = priority
+            repository.update(taskObject!!)
+            Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
+        } else {
+            listener.onError("Same Priority!", 22)
         }
     }
 }

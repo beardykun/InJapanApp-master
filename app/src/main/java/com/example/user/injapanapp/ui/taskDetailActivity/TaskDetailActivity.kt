@@ -10,6 +10,7 @@ import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.ui.generalActivity.GeneralActivityWithAppBar
 import com.example.user.injapanapp.ui.pictureViewActivity.PictureViewActivity
 import kotlinx.android.synthetic.main.activity_task_detail.*
+import org.jetbrains.anko.selector
 
 class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextView.OnEditorActionListener {
 
@@ -81,10 +82,13 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         }
         detailTaskDescriptionTV.setOnEditorActionListener(this)
         detailWhatToDoTV.setOnClickListener {
-            Utils.getAlert(
-                this,
-                getString(R.string.edit_description),
+            Utils.getAlert(this, getString(R.string.edit_description),
                 fun() { presenter?.enableDisableEditDescription(detailTaskDescriptionTV, true) })
+        }
+        detailPriorityTV.setOnClickListener {
+            selector("Choose value", resources.getStringArray(R.array.priority).toList()) { _, i ->
+                presenter?.updatePriority(resources.getStringArray(R.array.priority).toList()[i])
+            }
         }
     }
 
