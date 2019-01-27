@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/dp16"
         android:orientation="vertical"
+        android:id="@+id/detailMainLayout"
         tools:context=".ui.taskDetailActivity.TaskDetailActivity">
 
     <android.support.v4.widget.NestedScrollView

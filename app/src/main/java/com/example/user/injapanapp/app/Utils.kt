@@ -49,7 +49,7 @@ class Utils {
             }
         }
 
-        fun setComplitionColor(payed: String, done: String, view: View) {
+        fun setCompletionColor(payed: String, done: String, view: View) {
             if (payed == "1" && done == "0") {
                 view.backgroundColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed)
             } else if (payed == "0" && done == "1") {

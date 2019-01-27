@@ -1,6 +1,7 @@
 package com.example.user.injapanapp.ui.taskDetailActivity
 
 import android.os.Handler
+import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.text.InputType
@@ -19,7 +20,6 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.image
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
-import java.io.FileNotFoundException
 
 class TaskDetailInteractor(private val repository: TaskRepository = TaskRepository(ThisApplication.getInstance())) :
     ITaskDetailInteractor {
@@ -115,6 +115,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         detailPhotoIV: ImageView,
         detailPriorityTV: TextView,
         detailStartTimerFAB: FloatingActionButton,
+        detailMainLayout: CoordinatorLayout,
         listener: ITaskDetailInteractor.OnTaskDetailListener
     ) {
         detailTaskNumberTV.text = taskObject?.taskNumber
@@ -125,7 +126,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         detailTaskDescriptionTV.setText(taskObject?.taskDescription)
         detailPriorityTV.text = taskObject?.taskPriority
         Utils.setPriorityColors(detailPriorityTV, taskObject?.taskPriority!!)
-        Utils.setComplitionColor(taskObject?.taskGotMoney!!, taskObject?.taskDone!!, detailTaskNumberTV)
+        Utils.setCompletionColor(taskObject?.taskGotMoney!!, taskObject?.taskDone!!, detailMainLayout)
 
         if (taskObject?.taskGotMoney == "1") {
             detailTaskPriceTV.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent))

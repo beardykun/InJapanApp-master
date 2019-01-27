@@ -1,5 +1,6 @@
 package com.example.user.injapanapp.ui.taskDetailActivity
 
+import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.widget.EditText
 import android.widget.ImageView
@@ -80,13 +81,14 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
     override fun setTaskData(
         detailTaskNumberTV: TextView, detailTaskTypeTV: TextView, detailTaskPriceTV: TextView,
         detailTaskShelfTV: TextView, detailTaskEndDateTV: TextView, detailTaskDescriptionTV: EditText,
-        detailPhotoIV: ImageView, detailPriorityTV: TextView, detailStartTimerFAB: FloatingActionButton
-    ) {
+        detailPhotoIV: ImageView, detailPriorityTV: TextView, detailStartTimerFAB: FloatingActionButton,
+        detailMainLayout: CoordinatorLayout
+        ) {
         view?.showProgress()
         interactor.setTaskData(
             detailTaskNumberTV, detailTaskTypeTV, detailTaskPriceTV,
             detailTaskShelfTV, detailTaskEndDateTV, detailTaskDescriptionTV,
-            detailPhotoIV, detailPriorityTV, detailStartTimerFAB, this
+            detailPhotoIV, detailPriorityTV, detailStartTimerFAB, detailMainLayout, this
         )
     }
 

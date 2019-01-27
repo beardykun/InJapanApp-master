@@ -12,9 +12,7 @@ import com.example.user.injapanapp.R
 import com.example.user.injapanapp.app.ThisApplication
 import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.database.TaskObject
-import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.find
-import org.jetbrains.anko.textColor
 import java.util.concurrent.TimeUnit
 
 class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
@@ -63,7 +61,7 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
 
     private fun setStuff(holder: MainViewHolder, position: Int) {
         if (taskListToShow.isNotEmpty()) {
-            Utils.setComplitionColor(taskListToShow[position].taskGotMoney!!, taskList[position].taskDone, holder.itemView)
+            Utils.setCompletionColor(taskListToShow[position].taskGotMoney!!, taskList[position].taskDone, holder.itemView)
         }
         holder.taskNumber.text = taskListToShow[position].taskNumber
         holder.dateText.text = Utils.getTimeToEnd(taskList[position].taskStartTime!!.toLong())

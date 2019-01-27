@@ -66,8 +66,9 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
 
     override fun replaceTask(listener: ICreateTaskInteractor.OnCreateTaskListener) {
         val repository = TaskRepository(ThisApplication.getInstance())
-        repository.update(taskObject)
-        Handler().postDelayed({ listener.onSuccess() }, 300)
+        repository.delete(taskObject)
+        Handler().postDelayed({ repository.insert(taskObject) }, 150)
+        Handler().postDelayed({ listener.onSuccess() }, 150)
     }
 
     override fun launchCamera(listener: ICreateTaskInteractor.OnCreateTaskListener) {

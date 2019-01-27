@@ -1,5 +1,6 @@
 package com.example.user.injapanapp.ui.taskDetailActivity
 
+import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.widget.EditText
 import android.widget.ImageView
@@ -27,7 +28,7 @@ interface ITaskDetailInteractor {
         detailTaskNumberTV: TextView, detailTaskTypeTV: TextView, detailTaskPriceTV: TextView,
         detailTaskShelfTV: TextView, detailTaskEndDateTV: TextView, detailTaskDescriptionTV: EditText,
         detailPhotoIV: ImageView, detailPriorityTV: TextView, detailStartTimerFAB: FloatingActionButton,
-        listener: OnTaskDetailListener
+        detailMainLayout: CoordinatorLayout, listener: OnTaskDetailListener
     )
 
     fun updatePriority(priority: String, listener: OnTaskDetailListener)

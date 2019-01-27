@@ -58,7 +58,7 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         presenter?.setTaskData(
             detailTaskNumberTV, detailTaskTypeTV, detailTaskPriceTV, detailTaskShelfTV,
             detailTaskEndDateTV, detailTaskDescriptionTV, detailPhotoIV, detailPriorityTV,
-            detailStartTimerFAB
+            detailStartTimerFAB, detailMainLayout
         )
 
     }

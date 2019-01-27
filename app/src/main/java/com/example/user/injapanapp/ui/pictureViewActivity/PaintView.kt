@@ -35,7 +35,7 @@ class PaintView(context: Context, attributeSet: AttributeSet? = null) : View(con
         val height = metrics.heightPixels
 
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        mCanvas = Canvas(mBitmap)
+        mCanvas = Canvas(mBitmap!!)
 
         currentColor = DEFAULT_COLOR
         strokeWidth = BRUSH_SIZE
