@@ -104,7 +104,8 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
             detailTaskDescriptionTV.inputType = InputType.TYPE_NULL
         }
     }
-//todo change picture resize type
+
+    //todo change picture resize type
     override fun setTaskData(
         detailTaskNumberTV: TextView,
         detailTaskTypeTV: TextView,
@@ -125,7 +126,8 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         detailTaskEndDateTV.text = Utils.getTimeToEnd(taskObject?.taskStartTime!!.toLong())
         detailTaskDescriptionTV.setText(taskObject?.taskDescription)
         detailPriorityTV.text = taskObject?.taskPriority
-        Utils.setPriorityColors(detailPriorityTV, taskObject?.taskPriority!!)
+        if (taskObject?.taskPriority != null)
+            Utils.setPriorityColors(detailPriorityTV, taskObject?.taskPriority!!)
         Utils.setCompletionColor(taskObject?.taskGotMoney!!, taskObject?.taskDone!!, detailMainLayout)
 
         if (taskObject?.taskGotMoney == "1") {

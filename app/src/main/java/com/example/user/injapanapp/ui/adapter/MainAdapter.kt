@@ -61,7 +61,11 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
 
     private fun setStuff(holder: MainViewHolder, position: Int) {
         if (taskListToShow.isNotEmpty()) {
-            Utils.setCompletionColor(taskListToShow[position].taskGotMoney!!, taskList[position].taskDone, holder.itemView)
+            Utils.setCompletionColor(
+                taskListToShow[position].taskGotMoney!!,
+                taskList[position].taskDone,
+                holder.itemView
+            )
         }
         holder.taskNumber.text = taskListToShow[position].taskNumber
         holder.dateText.text = Utils.getTimeToEnd(taskList[position].taskStartTime!!.toLong())
@@ -69,10 +73,12 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
         when (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - taskList[position].taskStartTime!!.toLong())) {
             1L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed))
             2L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.done))
-            3L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent)
+            3L -> holder.dateText.setTextColor(
+                ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent)
             )
         }
-        Utils.setPriorityColors(holder.taskNumber, taskList[position].taskPriority!!)
+        if (taskList[position].taskPriority != null)
+            Utils.setPriorityColors(holder.taskNumber, taskList[position].taskPriority!!)
     }
 
     class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

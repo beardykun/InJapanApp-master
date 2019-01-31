@@ -39,13 +39,20 @@ class Utils {
             }.show()
         }
 
+        fun getSelector(context: Context, textView: TextView, choices: List<CharSequence>) {
+
+            context.selector("Choose value", choices) { _, i ->
+                textView.text = choices[i]
+            }
+        }
+
         fun setPriorityColors(textView: TextView, priority: String) {
             when (priority) {
                 "LOW" -> textView.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.LOW)
-                "NORMAL" -> textView.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.NORMAL)
                 "HIGH" -> textView.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.HIGH)
                 "IMMEDIATE" -> textView.textColor =
                     ContextCompat.getColor(ThisApplication.getInstance(), R.color.IMMEDIATE)
+                else -> textView.textColor = ContextCompat.getColor(ThisApplication.getInstance(), R.color.NORMAL)
             }
         }
 

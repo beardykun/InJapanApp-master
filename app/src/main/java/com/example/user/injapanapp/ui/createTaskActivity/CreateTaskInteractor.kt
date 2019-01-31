@@ -67,7 +67,7 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
     override fun replaceTask(listener: ICreateTaskInteractor.OnCreateTaskListener) {
         val repository = TaskRepository(ThisApplication.getInstance())
         repository.delete(taskObject)
-        Handler().postDelayed({ repository.insert(taskObject) }, 150)
+        Handler().postDelayed({ repository.insert(taskObject) }, 250)
         Handler().postDelayed({ listener.onSuccess() }, 150)
     }
 

@@ -7,16 +7,15 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.widget.TextView
 import android.widget.Toast
 import com.example.user.injapanapp.R
 import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.Utils
+import com.example.user.injapanapp.app.Utils.Companion.getSelector
 import com.example.user.injapanapp.ui.generalActivity.GeneralActivityWithAppBar
 import com.example.user.injapanapp.ui.mainActivity.MainActivity
 import kotlinx.android.synthetic.main.activity_create_task.*
-import org.jetbrains.anko.selector
 
 class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
 
@@ -81,31 +80,24 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
         createTaskTakePickFAB.setOnClickListener {
             checkPermissions()
         }
-        createTaskRorSTV.setOnClickListener { getSelector(createTaskRorSTV, listOf("R-", "S-")) }
+        createTaskRorSTV.setOnClickListener { getSelector(this, createTaskRorSTV, listOf("R-", "S-")) }
         createTaskTypeTV.setOnClickListener {
-            getSelector(
+            getSelector(this,
                 createTaskTypeTV,
                 resources.getStringArray(R.array.tasks).toList()
             )
         }
         createTaskPriceTV.setOnClickListener {
-            getSelector(
+            getSelector(this,
                 createTaskPriceTV,
                 resources.getStringArray(R.array.prices).toList()
             )
         }
         createTaskPriorityTV.setOnClickListener {
-            getSelector(
+            getSelector(this,
                 createTaskPriorityTV,
                 resources.getStringArray(R.array.priority).toList()
             )
-        }
-    }
-
-    private fun getSelector(textView: TextView, choices: List<CharSequence>) {
-
-        selector("Choose value", choices) { _, i ->
-            textView.text = choices[i]
         }
     }
 

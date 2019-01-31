@@ -160,8 +160,6 @@
         <EditText
                 android:hint="@string/enter_description"
                 android:focusable="false"
-                android:inputType="textMultiLine"
-                android:singleLine="false"
                 android:id="@+id/detailTaskDescriptionTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
