@@ -37,11 +37,11 @@ class BitmapUtils {
             val photoH = bmOptions.outHeight
 
             // Determine how much to scale down the image
-            val scaleFactor = Math.min(photoW / targetW, photoH / targetH)
+            //val scaleFactor = Math.min(photoW / targetW, photoH / targetH)
 
             // Decode the image file into a Bitmap sized to fill the View
             bmOptions.inJustDecodeBounds = false
-            bmOptions.inSampleSize = scaleFactor
+            //bmOptions.inSampleSize = scaleFactor
 
             return BitmapFactory.decodeFile(imagePath)
         }

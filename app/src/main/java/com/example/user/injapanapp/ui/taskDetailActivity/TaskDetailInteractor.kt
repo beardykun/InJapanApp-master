@@ -105,7 +105,6 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         }
     }
 
-    //todo change picture resize type
     override fun setTaskData(
         detailTaskNumberTV: TextView,
         detailTaskTypeTV: TextView,
