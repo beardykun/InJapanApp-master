@@ -16,6 +16,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity
+                android:name=".ui.settings.SettingsActivity"
+                android:label="@string/title_activity_settings">
+        </activity>
+
         <provider
                 android:name="android.support.v4.content.FileProvider"
                 android:authorities="com.example.user.fileprovider"
@@ -27,7 +32,7 @@
         </provider>
 
         <activity
-                android:name=".ui.mainActivity.MainActivity"
+                android:name=".ui.main_activity.MainActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -36,20 +41,21 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ui.taskDetailActivity.TaskDetailActivity"
-                android:parentActivityName=".ui.mainActivity.MainActivity"
+                android:name=".ui.task_detail_activity.TaskDetailActivity"
+                android:parentActivityName=".ui.main_activity.MainActivity"
                 android:screenOrientation="portrait">
         </activity>
         <activity
-                android:name=".ui.createTaskActivity.CreateTaskActivity"
-                android:parentActivityName=".ui.mainActivity.MainActivity"
+                android:name=".ui.create_task_activity.CreateTaskActivity"
+                android:parentActivityName=".ui.main_activity.MainActivity"
                 android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.historyActivity.HistoryActivity">
+        <activity android:name=".ui.history_activity.HistoryActivity">
         </activity>
-        <activity android:name=".ui.pictureViewActivity.PictureViewActivity"
-                  android:parentActivityName=".ui.taskDetailActivity.TaskDetailActivity"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".ui.picture_view_activity.PictureViewActivity"
+                android:parentActivityName=".ui.task_detail_activity.TaskDetailActivity"
+                android:screenOrientation="portrait">
         </activity>
     </application>
 

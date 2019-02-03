@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.historyActivity.HistoryActivity">
+        tools:context=".ui.history_activity.HistoryActivity">
 
     <android.support.design.widget.AppBarLayout
             xmlns:android="http://schemas.android.com/apk/res/android"

@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.pictureViewActivity.PictureViewActivity">
+        tools:context=".ui.picture_view_activity.PictureViewActivity">
 
     <ImageView
             android:id="@+id/pictureIV"
@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    <com.example.user.injapanapp.ui.pictureViewActivity.PaintView
+    <com.example.user.injapanapp.ui.picture_view_activity.PaintView
             android:id="@+id/paintView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

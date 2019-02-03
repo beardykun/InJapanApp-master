@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="tasks">
+        <item>Show All Tasks</item>
         <item>TEST</item>
         <item>SEPARATE</item>
         <item>PHOTO</item>
@@ -11,7 +12,7 @@
     </string-array>
 
     <string-array name="prices">
-        <item>0</item>
+        <item>FOC</item>
         <item>1000</item>
         <item>2000</item>
         <item>3000</item>
@@ -24,5 +25,11 @@
         <item>NORMAL</item>
         <item>HIGH</item>
         <item>IMMEDIATE</item>
+    </string-array>
+
+    <string-array name="filter">
+        <item>priority</item>
+        <item>date</item>
+        <item>none</item>
     </string-array>
 </resources>

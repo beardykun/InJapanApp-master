@@ -10,5 +10,9 @@ class Constants {
         const val TASK_TYPE = "TASK_TYPE"
 
         const val TAKING_PICKS = "TAKING_PICKS"
+
+        const val FILTER_TASK_TYPE = "open_only_this"
+
+        const val SORT_TASK_TYPE = "sort_key"
     }
 }
