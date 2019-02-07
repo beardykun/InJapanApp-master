@@ -1,6 +1,6 @@
 package com.example.user.injapanapp.ui.main_activity
 
-import com.example.user.injapanapp.app.TaskComporator
+import com.example.user.injapanapp.app.TaskComparator
 import com.example.user.injapanapp.app.ThisApplication
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
@@ -22,11 +22,12 @@ class MainInteractor : IMainInteractor {
         }
     }
 
-    override fun getTaskListWithTaskType(stringFromPreferences: String, listener: IMainInteractor.OnMainListener) {
+    override fun getTaskListWithTaskType(sort: String, stringFromPreferences: String, listener: IMainInteractor.OnMainListener) {
         val repository = TaskRepository(ThisApplication.getInstance())
         doAsync {
             val list = repository.getAllNotCompletedWithType("0", stringFromPreferences)
             uiThread {
+                sortList(sort, list)
                 listener.onSuccess(list)
             }
         }
@@ -39,6 +40,6 @@ class MainInteractor : IMainInteractor {
     }
 
     private fun sortList(sort: String, list: List<TaskObject>) {
-        Collections.sort(list, TaskComporator(sort))
+        Collections.sort(list, TaskComparator(sort))
     }
 }

@@ -9,7 +9,7 @@ import org.jetbrains.anko.*
 import java.util.concurrent.TimeUnit
 
 class Utils {
-
+    
     companion object {
         fun getTimeToEnd(startTime: Long): String {
             val past = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - startTime)

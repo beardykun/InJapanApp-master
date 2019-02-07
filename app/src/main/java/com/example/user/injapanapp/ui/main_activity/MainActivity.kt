@@ -23,8 +23,8 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
     private var repository: TaskRepository? = null
     private var presenter: IMainPresenter? = null
     private var preferencesChanged = true
-    private var filter: String = ""
-    private var sort: String = ""
+    private var filter: String = "Show All Tasks"
+    private var sort: String = "none"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,10 +99,10 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
 
     override fun getList() {
         presenter?.onAttachView(this)
-        if (filter == Constants.TASK_TYPE)
+        if (filter == getString(R.string.show_all_tasks))
             presenter?.getTaskList(sort)
         else
-            presenter?.getTaskListWithTaskType(filter)
+            presenter?.getTaskListWithTaskType(sort, filter)
     }
 
     private val onSharedPreferencesListener: SharedPreferences.OnSharedPreferenceChangeListener =

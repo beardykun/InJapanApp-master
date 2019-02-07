@@ -2,8 +2,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-            android:entries="@array/tasks"
-            android:entryValues="@array/tasks"
+            android:entries="@array/tasks_pref"
+            android:entryValues="@array/tasks_pref"
             android:key="open_only_this"
             android:persistent="true"
             android:defaultValue="@string/show_all_tasks"

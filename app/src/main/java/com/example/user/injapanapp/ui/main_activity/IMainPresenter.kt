@@ -7,6 +7,6 @@ interface IMainPresenter : IGeneralPresenter {
 
     fun onAttachView(view: IMainView)
     fun getTaskList(sort: String)
-    fun getTaskListWithTaskType(stringFromPreferences: String)
+    fun getTaskListWithTaskType(sort: String, stringFromPreferences: String)
     fun deleteTask(taskObject: TaskObject)
 }

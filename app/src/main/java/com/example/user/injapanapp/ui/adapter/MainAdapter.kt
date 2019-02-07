@@ -69,7 +69,7 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
         }
         holder.taskNumber.text = taskListToShow[position].taskNumber
         holder.dateText.text = Utils.getTimeToEnd(taskList[position].taskStartTime!!.toLong())
-        holder.taskText.text = taskListToShow[position].taskType
+        holder.shelfText.text = taskListToShow[position].taskShelfNumber
         when (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - taskList[position].taskStartTime!!.toLong())) {
             1L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed))
             2L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.done))
@@ -84,7 +84,7 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
     class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val taskNumber = itemView.find<TextView>(R.id.mainGoodsNumberTV)
         val dateText = itemView.find<TextView>(R.id.mainDateTV)
-        val taskText = itemView.find<TextView>(R.id.mainTaskTV)
+        val shelfText = itemView.find<TextView>(R.id.mainShelfTV)
     }
 
     override fun getFilter(): Filter {
