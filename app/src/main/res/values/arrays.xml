@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="tasks">
+        <item>TEST</item>
+        <item>SEPARATE</item>
+        <item>TRASH</item>
+        <item>保留リスト</item>
+    </string-array>
+
+    <string-array name="tasks_pref">
         <item>Show All Tasks</item>
         <item>TEST</item>
         <item>SEPARATE</item>
-        <item>PHOTO</item>
         <item>TRASH</item>
-        <item>SEPARATE AND TRASH</item>
-        <item>CHECK</item>
         <item>保留リスト</item>
     </string-array>
 
@@ -15,9 +19,6 @@
         <item>FOC</item>
         <item>1000</item>
         <item>2000</item>
-        <item>3000</item>
-        <item>4000</item>
-        <item>5000</item>
     </string-array>
 
     <string-array name="priority">
