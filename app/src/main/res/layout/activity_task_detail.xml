@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/dp16"
+        android:padding="@dimen/dp16"
         android:orientation="vertical"
         android:id="@+id/detailMainLayout"
         tools:context=".ui.task_detail_activity.TaskDetailActivity">
@@ -14,176 +14,176 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <TextView
-                android:id="@+id/detailTaskNumberTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold|italic"
-                style="@style/Base.TextAppearance.AppCompat.Display2"
-                android:gravity="center"
-                android:layout_marginBottom="@dimen/dp32"
-                tools:text="R740444"/>
-
-        <TextView
-                android:id="@+id/detailTimerTimeTV"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:visibility="gone"
-                android:textStyle="bold|italic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
         <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:orientation="horizontal">
+                android:layout_height="match_parent">
 
             <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/time_passed"
-                    android:layout_height="wrap_content"/>
-
-
-            <TextView
-                    android:id="@+id/detailTaskEndDateTV"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:gravity="center"
+                    android:id="@+id/detailTaskNumberTV"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="1d:3h:17m"/>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:orientation="horizontal">
+                    android:textStyle="bold|italic"
+                    style="@style/Base.TextAppearance.AppCompat.Display2"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/dp32"
+                    tools:text="R740444"/>
 
             <TextView
-                    android:text="@string/task_type"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:id="@+id/detailTimerTimeTV"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:visibility="gone"
+                    android:textStyle="bold|italic"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-            <TextView
-                    android:id="@+id/detailTaskTypeTV"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:gravity="center"
+            <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Test"/>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:orientation="horizontal">
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:orientation="horizontal">
 
-            <TextView
-                    android:text="@string/price"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/time_passed"
+                        android:layout_height="wrap_content"/>
 
-            <TextView
-                    android:id="@+id/detailTaskPriceTV"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:gravity="center"
+
+                <TextView
+                        android:id="@+id/detailTaskEndDateTV"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        tools:text="1d:3h:17m"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="1000 yen"/>
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:orientation="horizontal">
 
-        </LinearLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:orientation="horizontal">
+                <TextView
+                        android:text="@string/task_type"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
 
-            <TextView
-                    android:text="@string/shelf_number"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:id="@+id/detailTaskShelfTV"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:gravity="center"
+                <TextView
+                        android:id="@+id/detailTaskTypeTV"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        tools:text="Test"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="3312/5"/>
-        </LinearLayout>
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:orientation="horizontal">
+                <TextView
+                        android:text="@string/price"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/detailTaskPriceTV"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        tools:text="1000 yen"/>
+
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:text="@string/shelf_number"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/detailTaskShelfTV"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        tools:text="3312/5"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:text="@string/task_priority"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:id="@+id/detailPriorityTV"
+                        android:hint="@string/normal"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
             <TextView
-                    android:layout_width="0dp"
-                    android:text="@string/task_priority"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"/>
-
-            <TextView
-                    android:id="@+id/detailPriorityTV"
-                    android:hint="@string/normal"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_width="0dp"
+                    android:id="@+id/detailWhatToDoTV"
+                    android:text="@string/what_to_do"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
+            <EditText
+                    android:hint="@string/enter_description"
+                    android:focusable="false"
+                    android:id="@+id/detailTaskDescriptionTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Make me fill better"/>
+
+            <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerInside"
+                    android:id="@+id/detailPhotoIV"
+                    android:layout_width="50dp"
+                    android:layout_height="70dp"/>
+
+            <ImageButton
+                    android:layout_marginTop="@dimen/dp32"
+                    android:id="@+id/detailFinishedBtn"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_done_black_24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
-
-        <TextView
-                android:id="@+id/detailWhatToDoTV"
-                android:text="@string/what_to_do"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <EditText
-                android:hint="@string/enter_description"
-                android:focusable="false"
-                android:id="@+id/detailTaskDescriptionTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Make me fill better"/>
-
-        <ImageView
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerInside"
-                android:id="@+id/detailPhotoIV"
-                android:layout_width="50dp"
-                android:layout_height="70dp"/>
-
-        <ImageButton
-                android:layout_marginTop="@dimen/dp32"
-                android:id="@+id/detailFinishedBtn"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_done_black_24dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton
-            android:src="@drawable/ic_timer_black_24dp"
+            app:srcCompact="@drawable/ic_timer_black_24dp"
             android:id="@+id/detailStartTimerFAB"
             app:fabSize="mini"
             app:elevation="@dimen/dp8"

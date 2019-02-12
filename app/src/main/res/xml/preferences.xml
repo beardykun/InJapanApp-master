@@ -5,7 +5,7 @@
             android:entries="@array/tasks_pref"
             android:entryValues="@array/tasks_pref"
             android:key="open_only_this"
-            android:persistent="true"
+            android:dialogTitle="@string/filter_by"
             android:defaultValue="@string/show_all_tasks"
             android:title="@string/filter_type"
             android:summary="@string/filter_by_type"/>
@@ -14,7 +14,6 @@
             android:entries="@array/filter"
             android:entryValues="@array/filter"
             android:key="sort_key"
-            android:persistent="true"
             android:defaultValue="none"
             android:title="@string/sorting"
             android:summary="@string/sort_by"/>

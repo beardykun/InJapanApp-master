@@ -68,7 +68,7 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
             )
         }
         holder.taskNumber.text = taskListToShow[position].taskNumber
-        holder.dateText.text = Utils.getTimeToEnd(taskList[position].taskStartTime!!.toLong())
+        holder.dateText.text = taskListToShow[position].taskType
         holder.shelfText.text = taskListToShow[position].taskShelfNumber
         when (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - taskList[position].taskStartTime!!.toLong())) {
             1L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed))
