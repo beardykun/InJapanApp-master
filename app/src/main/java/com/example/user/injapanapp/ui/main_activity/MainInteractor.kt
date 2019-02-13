@@ -22,13 +22,18 @@ class MainInteractor : IMainInteractor {
         }
     }
 
-    override fun getTaskListWithTaskType(sort: String, stringFromPreferences: String, listener: IMainInteractor.OnMainListener) {
+    override fun getTaskListWithTaskType(
+        sort: String,
+        filterSet: Set<String>,
+        listener: IMainInteractor.OnMainListener
+    ) {
         val repository = TaskRepository(ThisApplication.getInstance())
         doAsync {
-            val list = repository.getAllNotCompletedWithType("0", stringFromPreferences)
+            val list = repository.getAllNotCompleted("0")
             uiThread {
-                sortList(sort, list)
-                listener.onSuccess(list)
+                val filteredList = getRightTypes(filterSet, list)
+                sortList(sort, filteredList)
+                listener.onSuccess(filteredList)
             }
         }
     }
@@ -41,5 +46,15 @@ class MainInteractor : IMainInteractor {
 
     private fun sortList(sort: String, list: List<TaskObject>) {
         Collections.sort(list, TaskComparator(sort))
+    }
+
+    private fun getRightTypes(filterSet: Set<String>, list: List<TaskObject>): List<TaskObject> {
+        val newList:MutableList<TaskObject> = mutableListOf()
+        for (i in list) {
+            if (filterSet.contains(i.taskType)) {
+                newList.add(i)
+            }
+        }
+        return newList
     }
 }

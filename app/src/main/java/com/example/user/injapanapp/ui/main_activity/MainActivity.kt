@@ -23,7 +23,7 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
     private var repository: TaskRepository? = null
     private var presenter: IMainPresenter? = null
     private var preferencesChanged = true
-    private var filter: String = "Show All Tasks"
+    private var filter: Set<String> = setOf("Show All Tasks")
     private var sort: String = "none"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +41,9 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
     override fun onStart() {
         super.onStart()
         if (preferencesChanged) {
-            filter = PreferenceManager.getDefaultSharedPreferences(this).getString(
+            filter = PreferenceManager.getDefaultSharedPreferences(this).getStringSet(
                 Constants.FILTER_TASK_TYPE,
-                getString(R.string.show_all_tasks)
+                setOf(getString(R.string.show_all_tasks))
             )!!
             sort = PreferenceManager.getDefaultSharedPreferences(this).getString(
                 Constants.SORT_TASK_TYPE,
@@ -99,7 +99,7 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
 
     override fun getList() {
         presenter?.onAttachView(this)
-        if (filter == getString(R.string.show_all_tasks))
+        if (filter.isEmpty())
             presenter?.getTaskList(sort)
         else
             presenter?.getTaskListWithTaskType(sort, filter)
@@ -109,7 +109,7 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
         SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, s ->
             preferencesChanged = true
             if (s == Constants.FILTER_TASK_TYPE) {
-                filter = sharedPreferences.getString(Constants.FILTER_TASK_TYPE, null)!!
+                filter = sharedPreferences.getStringSet(Constants.FILTER_TASK_TYPE, null)!!
             } else if (s == Constants.SORT_TASK_TYPE) {
                 sort = sharedPreferences.getString(Constants.SORT_TASK_TYPE, null)!!
             }

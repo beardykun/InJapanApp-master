@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-            android:entries="@array/tasks_pref"
-            android:entryValues="@array/tasks_pref"
+    <MultiSelectListPreference
+            android:entries="@array/tasks"
+            android:entryValues="@array/tasks"
             android:key="open_only_this"
-            android:dialogTitle="@string/filter_by"
             android:defaultValue="@string/show_all_tasks"
             android:title="@string/filter_type"
             android:summary="@string/filter_by_type"/>
