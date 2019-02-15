@@ -70,10 +70,11 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
         holder.taskNumber.text = taskListToShow[position].taskNumber
         holder.dateText.text = taskListToShow[position].taskType
         holder.shelfText.text = taskListToShow[position].taskShelfNumber
-        when (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - taskList[position].taskStartTime!!.toLong())) {
-            1L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed))
-            2L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.done))
-            3L -> holder.dateText.setTextColor(
+        val time = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - taskList[position].taskStartTime!!.toLong())
+        when (time) {
+            1L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.HIGH))
+            2L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed))
+            in 3L..10L -> holder.dateText.setTextColor(
                 ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent)
             )
         }

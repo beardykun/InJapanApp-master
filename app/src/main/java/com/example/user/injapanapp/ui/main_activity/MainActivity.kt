@@ -23,7 +23,6 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
     private var repository: TaskRepository? = null
     private var presenter: IMainPresenter? = null
     private var preferencesChanged = true
-    private var filter: Set<String> = setOf("Show All Tasks")
     private var sort: String = "none"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,10 +40,6 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
     override fun onStart() {
         super.onStart()
         if (preferencesChanged) {
-            filter = PreferenceManager.getDefaultSharedPreferences(this).getStringSet(
-                Constants.FILTER_TASK_TYPE,
-                setOf(getString(R.string.show_all_tasks))
-            )!!
             sort = PreferenceManager.getDefaultSharedPreferences(this).getString(
                 Constants.SORT_TASK_TYPE,
                 getString(R.string.none)
@@ -52,8 +47,33 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
             preferencesChanged = false
         }
         getList()
+        setOnClicks()
+    }
+
+    private fun setOnClicks() {
+        val array = resources.getStringArray(R.array.tasks)
         mainAddTask.setOnClickListener {
             startActivity(CreateTaskActivity::class.java)
+        }
+        showAllBTN.setOnClickListener{
+            SharedPreferencesClass.deleteFromPrefs()
+            recreate()
+        }
+        showTestBTN.setOnClickListener{
+            SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, array[0])
+            recreate()
+        }
+        showSeparateBTN.setOnClickListener{
+            SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, array[1])
+            recreate()
+        }
+        showTrashBTN.setOnClickListener{
+            SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, array[2])
+            recreate()
+        }
+        showHoryuBTN.setOnClickListener{
+            SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, array[3])
+            recreate()
         }
     }
 
@@ -99,18 +119,16 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
 
     override fun getList() {
         presenter?.onAttachView(this)
-        if (filter.isEmpty())
+        if (!SharedPreferencesClass.contains(Constants.TASK_TYPE))
             presenter?.getTaskList(sort)
         else
-            presenter?.getTaskListWithTaskType(sort, filter)
+            presenter?.getTaskListWithTaskType(sort)
     }
 
     private val onSharedPreferencesListener: SharedPreferences.OnSharedPreferenceChangeListener =
         SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, s ->
             preferencesChanged = true
-            if (s == Constants.FILTER_TASK_TYPE) {
-                filter = sharedPreferences.getStringSet(Constants.FILTER_TASK_TYPE, null)!!
-            } else if (s == Constants.SORT_TASK_TYPE) {
+            if (s == Constants.SORT_TASK_TYPE) {
                 sort = sharedPreferences.getString(Constants.SORT_TASK_TYPE, null)!!
             }
         }

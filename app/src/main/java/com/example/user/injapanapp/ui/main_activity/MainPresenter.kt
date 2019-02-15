@@ -35,9 +35,9 @@ class MainPresenter(private val interactor: IMainInteractor = MainInteractor()) 
         view?.getList()
     }
 
-    override fun getTaskListWithTaskType(sort: String, filterSet: Set<String>) {
+    override fun getTaskListWithTaskType(sort: String) {
         view?.showProgress()
-        interactor.getTaskListWithTaskType(sort, filterSet, this)
+        interactor.getTaskListWithTaskType(sort, this)
     }
 
     override fun deleteTask(taskObject: TaskObject) {

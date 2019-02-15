@@ -1,5 +1,7 @@
 package com.example.user.injapanapp.ui.main_activity
 
+import com.example.user.injapanapp.app.Constants
+import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.TaskComparator
 import com.example.user.injapanapp.app.ThisApplication
 import com.example.user.injapanapp.database.TaskObject
@@ -24,16 +26,18 @@ class MainInteractor : IMainInteractor {
 
     override fun getTaskListWithTaskType(
         sort: String,
-        filterSet: Set<String>,
         listener: IMainInteractor.OnMainListener
     ) {
         val repository = TaskRepository(ThisApplication.getInstance())
         doAsync {
-            val list = repository.getAllNotCompleted("0")
+            val list = repository.getAllNotCompletedWithType(
+                "0",
+                SharedPreferencesClass.getStringFromPreferences(Constants.TASK_TYPE)
+            )
             uiThread {
-                val filteredList = getRightTypes(filterSet, list)
-                sortList(sort, filteredList)
-                listener.onSuccess(filteredList)
+                // val filteredList = getRightTypes(filterSet, list)
+                sortList(sort, list)
+                listener.onSuccess(list)
             }
         }
     }
@@ -48,13 +52,13 @@ class MainInteractor : IMainInteractor {
         Collections.sort(list, TaskComparator(sort))
     }
 
-    private fun getRightTypes(filterSet: Set<String>, list: List<TaskObject>): List<TaskObject> {
-        val newList:MutableList<TaskObject> = mutableListOf()
-        for (i in list) {
-            if (filterSet.contains(i.taskType)) {
-                newList.add(i)
-            }
-        }
-        return newList
-    }
+    /*  private fun getRightTypes(filterSet: Set<String>, list: List<TaskObject>): List<TaskObject> {
+          val newList:MutableList<TaskObject> = mutableListOf()
+          for (i in list) {
+              if (filterSet.contains(i.taskType)) {
+                  newList.add(i)
+              }
+          }
+          return newList
+      }*/
 }
