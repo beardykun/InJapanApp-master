@@ -178,7 +178,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
-            android:src="@drawable/ic_camera_enhance_black_24dp"
+            app:srcCompat="@drawable/ic_camera_enhance_black_24dp"
             app:fabSize="mini"
             app:elevation="@dimen/dp8"
             app:layout_anchorGravity="top|end"
@@ -188,7 +188,7 @@
             android:layout_height="wrap_content"/>
 
     <android.support.design.widget.FloatingActionButton
-            android:src="@drawable/ic_save_black_24dp"
+            app:srcCompat="@drawable/ic_save_black_24dp"
             app:fabSize="mini"
             app:elevation="@dimen/dp8"
             app:layout_anchorGravity="bottom|end"
