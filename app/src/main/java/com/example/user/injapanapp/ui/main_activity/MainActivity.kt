@@ -112,7 +112,8 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
     }
 
     override fun setAdapter(list: List<TaskObject>) {
-        val adapter = MainAdapter(list)
+        val adapter = MainAdapter()
+        adapter.setListToShow(list)
         adapter.setOnMainTaskListener(this)
         mainRecyclerView.adapter = adapter
     }

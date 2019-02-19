@@ -21,20 +21,19 @@ class BitmapUtils {
 
         fun resamplePic(context: Context, imagePath: String): Bitmap {
 
-            // Get device screen size information
             val metrics = DisplayMetrics()
             val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
             manager.defaultDisplay.getMetrics(metrics)
 
-            val targetH = metrics.heightPixels
-            val targetW = metrics.widthPixels
+            //val targetH = metrics.heightPixels
+            //val targetW = metrics.widthPixels
 
             // Get the dimensions of the original bitmap
             val bmOptions = BitmapFactory.Options()
             bmOptions.inJustDecodeBounds = true
             BitmapFactory.decodeFile(imagePath, bmOptions)
-            val photoW = bmOptions.outWidth
-            val photoH = bmOptions.outHeight
+            //val photoW = bmOptions.outWidth
+            //val photoH = bmOptions.outHeight
 
             // Determine how much to scale down the image
             //val scaleFactor = Math.min(photoW / targetW, photoH / targetH)

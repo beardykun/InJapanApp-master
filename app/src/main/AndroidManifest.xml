@@ -44,6 +44,7 @@
         <activity
                 android:name=".ui.task_detail_activity.TaskDetailActivity"
                 android:parentActivityName=".ui.main_activity.MainActivity"
+                android:windowSoftInputMode="stateAlwaysHidden"
                 android:screenOrientation="portrait">
         </activity>
         <activity
@@ -51,13 +52,16 @@
                 android:parentActivityName=".ui.main_activity.MainActivity"
                 android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.history_activity.HistoryActivity">
+        <activity android:name=".ui.history_activity.HistoryActivity"
+        android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name=".ui.picture_view_activity.PictureViewActivity"
                 android:parentActivityName=".ui.task_detail_activity.TaskDetailActivity"
                 android:screenOrientation="portrait">
         </activity>
+        <service android:name=".database.DBUpdateService"
+        android:exported="false"/>
     </application>
 
 </manifest>

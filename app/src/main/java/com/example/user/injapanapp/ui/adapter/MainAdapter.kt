@@ -15,15 +15,12 @@ import com.example.user.injapanapp.database.TaskObject
 import org.jetbrains.anko.find
 import java.util.concurrent.TimeUnit
 
-class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
+class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
     Filterable {
 
     private var tasksFilter: TasksFilter? = null
-    private var taskListToShow: List<TaskObject>
-
-    init {
-        taskListToShow = taskList
-    }
+    private var taskListToShow: List<TaskObject>? = null
+    private var taskList: List<TaskObject>? = null
 
     interface OnMainTaskListener {
         fun onMainTaskClick(taskNum: String)
@@ -43,43 +40,60 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
     }
 
     override fun getItemCount(): Int {
-        return taskListToShow.size
+        return if (taskListToShow != null)
+        taskListToShow!!.size
+        else
+            0
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        if (listener != null) {
-            holder.itemView.setOnClickListener {
-                listener?.onMainTaskClick(taskListToShow[holder.adapterPosition].taskNumber)
+        if (taskListToShow != null) {
+            if (listener != null) {
+                holder.itemView.setOnClickListener {
+                    listener?.onMainTaskClick(taskListToShow!![holder.adapterPosition].taskNumber)
+                }
+                holder.itemView.setOnLongClickListener {
+                    listener?.onDeleteTaskClick(taskListToShow!![holder.adapterPosition])
+                    true
+                }
+                setStuff(holder, position)
             }
-            holder.itemView.setOnLongClickListener {
-                listener?.onDeleteTaskClick(taskListToShow[holder.adapterPosition])
-                true
-            }
-            setStuff(holder, position)
+        }else{
+            holder.taskNumber.text = "No Task Present"
         }
     }
 
     private fun setStuff(holder: MainViewHolder, position: Int) {
-        if (taskListToShow.isNotEmpty()) {
+        if (taskListToShow!!.isNotEmpty()) {
             Utils.setCompletionColor(
-                taskListToShow[position].taskGotMoney!!,
-                taskList[position].taskDone,
+                taskListToShow!![position].taskGotMoney!!,
+                taskListToShow!![position].taskDone,
                 holder.itemView
             )
+
+            holder.taskNumber.text = taskListToShow!![position].taskNumber
+            holder.dateText.text = taskListToShow!![position].taskType
+            holder.shelfText.text = taskListToShow!![position].taskShelfNumber
+            val time =
+                TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - taskListToShow!![position].taskStartTime!!.toLong())
+            when (time) {
+                1L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.HIGH))
+                2L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed))
+                in 3L..10L -> holder.dateText.setTextColor(
+                    ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent)
+                )
+            }
+            if (taskListToShow!![position].taskPriority != null)
+                Utils.setPriorityColors(holder.taskNumber, taskListToShow!![position].taskPriority!!)
+        }else{
+            holder.taskNumber.text = ThisApplication.getInstance().getString(R.string.no_tasks)
         }
-        holder.taskNumber.text = taskListToShow[position].taskNumber
-        holder.dateText.text = taskListToShow[position].taskType
-        holder.shelfText.text = taskListToShow[position].taskShelfNumber
-        val time = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - taskList[position].taskStartTime!!.toLong())
-        when (time) {
-            1L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.HIGH))
-            2L -> holder.dateText.setTextColor(ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed))
-            in 3L..10L -> holder.dateText.setTextColor(
-                ContextCompat.getColor(ThisApplication.getInstance(), R.color.colorAccent)
-            )
-        }
-        if (taskList[position].taskPriority != null)
-            Utils.setPriorityColors(holder.taskNumber, taskList[position].taskPriority!!)
+    }
+
+    fun setListToShow(list: List<TaskObject>){
+        taskList = list
+        taskListToShow = taskList
+        notifyDataSetChanged()
     }
 
     class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -100,7 +114,7 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
             val filterResults = FilterResults()
             if (constraint != null && constraint.isNotEmpty()) {
                 val filterList = ArrayList<TaskObject>()
-                for (task in taskList) {
+                for (task in taskList!!) {
                     if (task.taskNumber.contains(constraint)) {
                         filterList.add(task)
                     }
@@ -108,7 +122,7 @@ class MainAdapter(private val taskList: List<TaskObject>) : RecyclerView.Adapter
                 filterResults.count = filterList.size
                 filterResults.values = filterList
             } else {
-                filterResults.count = taskList.size
+                filterResults.count = taskList!!.size
                 filterResults.values = taskList
             }
             return filterResults

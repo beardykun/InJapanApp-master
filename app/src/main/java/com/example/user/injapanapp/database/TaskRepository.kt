@@ -16,15 +16,15 @@ class TaskRepository(application: Application) {
     }
 
     fun insert(taskObject: TaskObject) {
-        doAsync { taskDao.insert(taskObject) }
+        taskDao.insert(taskObject)
     }
 
     fun delete(taskObject: TaskObject) {
-        doAsync { taskDao.deleteTask(taskObject) }
+        taskDao.deleteTask(taskObject)
     }
 
     fun update(taskObject: TaskObject) {
-        doAsync { taskDao.updateTask(taskObject) }
+        taskDao.updateTask(taskObject)
     }
 
     fun findByTaskNumber(number: String): TaskObject {

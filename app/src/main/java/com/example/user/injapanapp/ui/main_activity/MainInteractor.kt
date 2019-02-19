@@ -4,6 +4,7 @@ import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.TaskComparator
 import com.example.user.injapanapp.app.ThisApplication
+import com.example.user.injapanapp.database.DBUpdateService
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
 import org.jetbrains.anko.doAsync
@@ -35,7 +36,6 @@ class MainInteractor : IMainInteractor {
                 SharedPreferencesClass.getStringFromPreferences(Constants.TASK_TYPE)
             )
             uiThread {
-                // val filteredList = getRightTypes(filterSet, list)
                 sortList(sort, list)
                 listener.onSuccess(list)
             }
@@ -43,22 +43,11 @@ class MainInteractor : IMainInteractor {
     }
 
     override fun deleteTask(taskObject: TaskObject, listener: IMainInteractor.OnMainListener) {
-        val repository = TaskRepository(ThisApplication.getInstance())
-        repository.delete(taskObject)
+        DBUpdateService.deleteTask(ThisApplication.getInstance(), taskObject)
         listener.onSuccessDeleted()
     }
 
     private fun sortList(sort: String, list: List<TaskObject>) {
         Collections.sort(list, TaskComparator(sort))
     }
-
-    /*  private fun getRightTypes(filterSet: Set<String>, list: List<TaskObject>): List<TaskObject> {
-          val newList:MutableList<TaskObject> = mutableListOf()
-          for (i in list) {
-              if (filterSet.contains(i.taskType)) {
-                  newList.add(i)
-              }
-          }
-          return newList
-      }*/
 }

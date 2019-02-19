@@ -9,6 +9,7 @@ import android.widget.ImageView
 import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.ThisApplication
+import com.example.user.injapanapp.database.DBUpdateService
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
 import org.jetbrains.anko.doAsync
@@ -55,7 +56,7 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
             val checkTaskExists = repository.findByTaskNumber(taskObject.taskNumber)
             uiThread {
                 if (checkTaskExists == null) {
-                    repository.insert(taskObject)
+                    DBUpdateService.insertTask(ThisApplication.getInstance(), taskObject)
                     listener.onSuccess()
                 } else {
                     listener.onErrorTaskInside()
@@ -65,9 +66,8 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
     }
 
     override fun replaceTask(listener: ICreateTaskInteractor.OnCreateTaskListener) {
-        val repository = TaskRepository(ThisApplication.getInstance())
-        repository.delete(taskObject)
-        Handler().postDelayed({ repository.insert(taskObject) }, 250)
+        DBUpdateService.deleteTask(ThisApplication.getInstance(), taskObject)
+        Handler().postDelayed({ DBUpdateService.insertTask(ThisApplication.getInstance(), taskObject) }, 250)
         Handler().postDelayed({ listener.onSuccess() }, 150)
     }
 
@@ -109,7 +109,7 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
 
     override fun saveImage(listener: ICreateTaskInteractor.OnCreateTaskListener) {
         BitmapUtils.deleteImageFile(ThisApplication.getInstance(), mTempPhotoPath!!)
-        val savedPath = BitmapUtils.saveImage(ThisApplication.getInstance(), mResultsBitmap!!)
+        val savedPath: String? = BitmapUtils.saveImage(ThisApplication.getInstance(), mResultsBitmap!!)
         taskObject.taskPhoto = savedPath
         listener.onSaveAndClearAndDeleteSuccess()
     }

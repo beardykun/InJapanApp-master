@@ -54,7 +54,8 @@ class HistoryActivity : GeneralActivity(), IHistoryView, MainAdapter.OnMainTaskL
     }
 
     override fun getAllTasks(list: List<TaskObject>) {
-        adapter = MainAdapter(list)
+        adapter = MainAdapter()
+        adapter?.setListToShow(list)
         adapter?.setOnMainTaskListener(this)
         historyRecyclerView.adapter = adapter
     }

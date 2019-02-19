@@ -5,6 +5,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.text.InputType
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -13,20 +14,19 @@ import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.ThisApplication
 import com.example.user.injapanapp.app.Utils
+import com.example.user.injapanapp.database.DBUpdateService
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
 import com.example.user.injapanapp.ui.create_task_activity.BitmapUtils
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.image
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 
-class TaskDetailInteractor(private val repository: TaskRepository = TaskRepository(ThisApplication.getInstance())) :
+class TaskDetailInteractor :
     ITaskDetailInteractor {
 
     private var taskObject: TaskObject? = null
 
     override fun getTaskDataFromDb(listener: ITaskDetailInteractor.OnTaskDetailListener) {
+        val repository = TaskRepository(ThisApplication.getInstance())
         doAsync {
             taskObject =
                 repository.findByTaskNumber(SharedPreferencesClass.getStringFromPreferences(Constants.PASS_TASK_NUMBER_WITH_PREFS))
@@ -42,7 +42,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         else
             taskObject?.taskGotMoney = "0"
 
-        repository.update(taskObject!!)
+        DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
         Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
     }
 
@@ -50,21 +50,21 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         if (taskObject?.taskFinished == "0") {
             if (taskObject?.taskGotMoney == "1" && taskObject?.taskDone == "1") {
                 taskObject?.taskFinished = "1"
-                repository.update(taskObject!!)
+                DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
                 listener.onSuccessUpdateFinished()
             } else {
                 listener.onError("Don't forget to take money first!!!", 7)
             }
         }else {
             taskObject?.taskFinished = "0"
-            repository.update(taskObject!!)
+            DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
             listener.onSuccessUpdateFinished()
         }
     }
 
     override fun editDescription(string: String, listener: ITaskDetailInteractor.OnTaskDetailListener) {
         taskObject?.taskDescription = string
-        repository.update(taskObject!!)
+        DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
         Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
     }
 
@@ -74,7 +74,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         else
             taskObject?.taskDone = "0"
 
-        repository.update(taskObject!!)
+        DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
         Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
     }
 
@@ -86,7 +86,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
             floatingActionButton.image =
                 ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
             taskObject?.taskStartTimer = System.currentTimeMillis().toString()
-            repository.update(taskObject!!)
+            DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
             taskObject?.taskTimerIsRunning = "1"
             Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
         } else {
@@ -95,7 +95,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
             taskObject?.taskTimerIsRunning = "0"
             val time = Utils.getTimerTime(taskObject!!.taskStartTimer!!.toLong())
             taskObject?.taskTimePassed = time
-            repository.update(taskObject!!)
+            DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
             Handler().postDelayed({ listener.onSuccessTimerStopped(time) }, 300)
         }
     }
@@ -104,7 +104,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
         if (enabled) {
             detailTaskDescriptionTV.isFocusableInTouchMode = true
             detailTaskDescriptionTV.isFocusable = true
-            detailTaskDescriptionTV.inputType = InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE
+            detailTaskDescriptionTV.inputType = InputType.TYPE_CLASS_TEXT
         } else {
             detailTaskDescriptionTV.isFocusable = false
             detailTaskDescriptionTV.inputType = InputType.TYPE_NULL
@@ -166,7 +166,7 @@ class TaskDetailInteractor(private val repository: TaskRepository = TaskReposito
     override fun updatePriority(priority: String, listener: ITaskDetailInteractor.OnTaskDetailListener) {
         if (!taskObject?.taskPriority.equals(priority)) {
             taskObject?.taskPriority = priority
-            repository.update(taskObject!!)
+            DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
             Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
         } else {
             listener.onError("Same Priority!", 22)

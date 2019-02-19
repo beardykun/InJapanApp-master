@@ -59,4 +59,5 @@
     <string name="none">none</string>
     <string name="filter_by">Filter by:</string>
     <string name="all">all</string>
+    <string name="no_tasks">No active tasks</string>
 </resources>
