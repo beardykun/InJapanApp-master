@@ -1,15 +1,21 @@
 package com.example.user.injapanapp.ui.task_detail_activity
 
+import android.content.Context
 import android.os.Bundle
+import android.text.InputType
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.example.user.injapanapp.R
 import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.ui.general_activity.GeneralActivityWithAppBar
 import com.example.user.injapanapp.ui.picture_view_activity.PictureViewActivity
 import kotlinx.android.synthetic.main.activity_task_detail.*
+import org.jetbrains.anko.toast
 
 class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextView.OnEditorActionListener {
 
@@ -80,6 +86,8 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
             Utils.getAlert(this, getString(R.string.task_accomplished), fun() { presenter?.updateDoneStatus() })
         }
         detailTaskDescriptionTV.setOnEditorActionListener(this)
+        detailTaskDescriptionTV.imeOptions = EditorInfo.IME_ACTION_DONE
+        detailTaskDescriptionTV.setRawInputType(InputType.TYPE_CLASS_TEXT)
         detailWhatToDoTV.setOnClickListener {
             Utils.getAlert(this, getString(R.string.edit_description),
                 fun() { presenter?.enableDisableEditDescription(detailTaskDescriptionTV, true) })
@@ -91,9 +99,15 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
     }
 
     override fun onEditorAction(textView: TextView, p1: Int, keyEvent: KeyEvent?): Boolean {
-        if (p1 == EditorInfo.IME_ACTION_DONE) {
-            presenter?.addDescription(textView.text.toString())
+        if (p1 == EditorInfo.IME_ACTION_DONE){
+            val view = this.currentFocus
+            view?.let { v ->
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as
+                        InputMethodManager
+                imm.hideSoftInputFromWindow(v.windowToken, 0)
+            }
             presenter?.enableDisableEditDescription(detailTaskDescriptionTV, false)
+            presenter?.addDescription(textView.text.toString())
             return true
         }
         return false

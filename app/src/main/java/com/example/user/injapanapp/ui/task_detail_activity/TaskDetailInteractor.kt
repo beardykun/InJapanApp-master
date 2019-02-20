@@ -19,6 +19,7 @@ import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
 import com.example.user.injapanapp.ui.create_task_activity.BitmapUtils
 import org.jetbrains.anko.*
+import java.lang.Exception
 
 class TaskDetailInteractor :
     ITaskDetailInteractor {
@@ -104,10 +105,8 @@ class TaskDetailInteractor :
         if (enabled) {
             detailTaskDescriptionTV.isFocusableInTouchMode = true
             detailTaskDescriptionTV.isFocusable = true
-            detailTaskDescriptionTV.inputType = InputType.TYPE_CLASS_TEXT
         } else {
             detailTaskDescriptionTV.isFocusable = false
-            detailTaskDescriptionTV.inputType = InputType.TYPE_NULL
         }
     }
 
@@ -149,7 +148,7 @@ class TaskDetailInteractor :
             try {
                 val bitmap = BitmapUtils.resamplePic(ThisApplication.getInstance(), taskObject?.taskPhoto!!)
                 detailPhotoIV.setImageBitmap(bitmap)
-            } catch (e: IllegalStateException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 ThisApplication.getInstance().toast("Image was deleted")
             }
