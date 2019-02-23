@@ -8,6 +8,7 @@
 
     <ImageView
             android:id="@+id/pictureIV"
+            android:scaleType="fitXY"
             tools:src="@drawable/ic_save_black_24dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

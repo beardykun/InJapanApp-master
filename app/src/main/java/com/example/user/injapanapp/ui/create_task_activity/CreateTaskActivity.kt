@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.text.InputType
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.example.user.injapanapp.R
 import com.example.user.injapanapp.app.Constants
@@ -99,6 +101,8 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
                 resources.getStringArray(R.array.priority).toList()
             )
         }
+        createTaskDescriptionET.imeOptions = EditorInfo.IME_ACTION_DONE
+        createTaskDescriptionET.setRawInputType(InputType.TYPE_CLASS_TEXT)
     }
 
     override fun finishActivity() {

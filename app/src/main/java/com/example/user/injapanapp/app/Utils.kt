@@ -64,6 +64,9 @@ class Utils {
             } else if (payed == "1" && done == "1") {
                 view.backgroundColor =
                     ContextCompat.getColor(ThisApplication.getInstance(), R.color.payed_and_done)
+            }else{
+                view.backgroundColor =
+                    ContextCompat.getColor(ThisApplication.getInstance(), R.color.white)
             }
         }
     }

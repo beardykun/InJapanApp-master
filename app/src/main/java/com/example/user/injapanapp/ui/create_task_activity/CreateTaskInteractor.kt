@@ -66,9 +66,8 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
     }
 
     override fun replaceTask(listener: ICreateTaskInteractor.OnCreateTaskListener) {
-        DBUpdateService.deleteTask(ThisApplication.getInstance(), taskObject)
-        Handler().postDelayed({ DBUpdateService.insertTask(ThisApplication.getInstance(), taskObject) }, 250)
-        Handler().postDelayed({ listener.onSuccess() }, 150)
+        DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject)
+        Handler().postDelayed({ listener.onSuccess() }, 300)
     }
 
     override fun launchCamera(listener: ICreateTaskInteractor.OnCreateTaskListener) {

@@ -39,6 +39,7 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
 
     override fun onStart() {
         super.onStart()
+        presenter?.onAttachView(this)
         if (preferencesChanged) {
             sort = PreferenceManager.getDefaultSharedPreferences(this).getString(
                 Constants.SORT_TASK_TYPE,
@@ -46,9 +47,15 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
             )!!
             preferencesChanged = false
         }
-        getList()
         setOnClicks()
     }
+
+    override fun onResume() {
+        super.onResume()
+        getList()
+    }
+
+
 
     private fun setOnClicks() {
         val array = resources.getStringArray(R.array.tasks)
@@ -119,7 +126,6 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
     }
 
     override fun getList() {
-        presenter?.onAttachView(this)
         if (!SharedPreferencesClass.contains(Constants.TASK_TYPE))
             presenter?.getTaskList(sort)
         else

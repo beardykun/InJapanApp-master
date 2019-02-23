@@ -184,7 +184,7 @@
 
     </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton
-            android:src="@drawable/ic_timer_black_24dp"
+            app:srcCompat="@drawable/ic_timer_black_24dp"
             android:id="@+id/detailStartTimerFAB"
             app:fabSize="mini"
             app:elevation="@dimen/dp8"

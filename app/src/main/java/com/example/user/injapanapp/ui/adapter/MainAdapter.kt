@@ -70,7 +70,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
                 taskListToShow!![position].taskDone,
                 holder.itemView
             )
-
+            holder.taskOrderNum.text = taskListToShow!![position].id.toString()
             holder.taskNumber.text = taskListToShow!![position].taskNumber
             holder.dateText.text = taskListToShow!![position].taskType
             holder.shelfText.text = taskListToShow!![position].taskShelfNumber
@@ -97,6 +97,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
     }
 
     class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val taskOrderNum = itemView.find<TextView>(R.id.mainTaskOrderNum)
         val taskNumber = itemView.find<TextView>(R.id.mainGoodsNumberTV)
         val dateText = itemView.find<TextView>(R.id.mainDateTV)
         val shelfText = itemView.find<TextView>(R.id.mainShelfTV)
