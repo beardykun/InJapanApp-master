@@ -87,8 +87,8 @@ class TaskDetailInteractor :
             floatingActionButton.image =
                 ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_off_black_24dp)
             taskObject?.taskStartTimer = System.currentTimeMillis().toString()
-            DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
             taskObject?.taskTimerIsRunning = "1"
+            DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
             Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
         } else {
             floatingActionButton.image =

@@ -68,7 +68,6 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
     }
 
     private fun setOnClicks() {
-        //todo fix this
         detailStartTimerFAB.setOnClickListener {
             Utils.getAlert(
                 this,

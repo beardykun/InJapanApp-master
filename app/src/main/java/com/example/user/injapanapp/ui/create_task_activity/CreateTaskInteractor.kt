@@ -54,6 +54,7 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
         val repository = TaskRepository(ThisApplication.getInstance())
         doAsync {
             val checkTaskExists = repository.findByTaskNumber(taskObject.taskNumber)
+            taskObject.id = checkTaskExists.id
             uiThread {
                 if (checkTaskExists == null) {
                     DBUpdateService.insertTask(ThisApplication.getInstance(), taskObject)
