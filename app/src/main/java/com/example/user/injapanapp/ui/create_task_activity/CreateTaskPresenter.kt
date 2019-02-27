@@ -67,11 +67,6 @@ class CreateTaskPresenter(
         interactor.processAndSetImage(imageView, this)
     }
 
-    override fun saveImage() {
-        view?.showProgress()
-        interactor.saveImage(this)
-    }
-
     override fun clearImage() {
         view?.showProgress()
         interactor.clearImage(this)
@@ -88,6 +83,5 @@ class CreateTaskPresenter(
 
     override fun onProcessAndSetImageSuccess() {
         view?.hideProgress()
-        view?.showSaveFAB()
     }
 }

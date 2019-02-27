@@ -1,5 +1,6 @@
 package com.example.user.injapanapp.ui.main_activity
 
+import android.os.Handler
 import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.TaskComparator
@@ -44,7 +45,8 @@ class MainInteractor : IMainInteractor {
 
     override fun deleteTask(taskObject: TaskObject, listener: IMainInteractor.OnMainListener) {
         DBUpdateService.deleteTask(ThisApplication.getInstance(), taskObject)
-        listener.onSuccessDeleted()
+        Handler().postDelayed(
+            {listener.onSuccessDeleted()}, 300)
     }
 
     private fun sortList(sort: String, list: List<TaskObject>) {

@@ -31,15 +31,6 @@
                         android:gravity="center_vertical"
                         android:layout_height="match_parent"/>
 
-                <TextView
-                        android:id="@+id/createTaskRorSTV"
-                        android:text="@string/r"
-                        android:textStyle="bold"
-                        android:layout_weight="0.2"
-                        android:layout_width="0dp"
-                        android:gravity="center"
-                        android:layout_height="wrap_content"/>
-
 
                 <EditText
                         android:id="@+id/createTaskNumberET"
@@ -187,14 +178,4 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-    <android.support.design.widget.FloatingActionButton
-            app:srcCompat="@drawable/ic_save_black_24dp"
-            app:fabSize="mini"
-            app:elevation="@dimen/dp8"
-            app:layout_anchorGravity="bottom|end"
-            android:visibility="gone"
-            app:layout_anchor="@id/createTaskBtn"
-            android:id="@+id/createTaskSavePickFAB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 </android.support.design.widget.CoordinatorLayout>

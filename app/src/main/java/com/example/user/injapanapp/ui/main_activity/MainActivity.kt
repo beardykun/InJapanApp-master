@@ -55,8 +55,6 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
         getList()
     }
 
-
-
     private fun setOnClicks() {
         val array = resources.getStringArray(R.array.tasks)
         mainAddTask.setOnClickListener {

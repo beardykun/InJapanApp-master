@@ -36,14 +36,6 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
     override fun onStart() {
         super.onStart()
         presenter?.onAttachView(this)
-        createTaskBtn.setOnClickListener {
-            presenter?.validateAndInsert(
-                createTaskRorSTV.text.toString()
-                        + createTaskNumberET.text.toString(), createTaskTypeTV.text.toString(),
-                createTaskPriceTV.text.toString(), createTaskShelfET.text.toString(),
-                createTaskDescriptionET.text.toString(), createTaskPriorityTV.text.toString()
-            )
-        }
     }
 
     override fun onRestart() {
@@ -75,14 +67,9 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
     }
 
     private fun setClickListeners() {
-        createTaskSavePickFAB.setOnClickListener {
-            presenter?.saveImage()
-            createTaskSavePickFAB.hide()
-        }
         createTaskTakePickFAB.setOnClickListener {
             checkPermissions()
         }
-        createTaskRorSTV.setOnClickListener { getSelector(this, createTaskRorSTV, listOf("R-", "S-")) }
         createTaskTypeTV.setOnClickListener {
             getSelector(this,
                 createTaskTypeTV,
@@ -103,6 +90,13 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
         }
         createTaskDescriptionET.imeOptions = EditorInfo.IME_ACTION_DONE
         createTaskDescriptionET.setRawInputType(InputType.TYPE_CLASS_TEXT)
+        createTaskBtn.setOnClickListener {
+            presenter?.validateAndInsert(
+                createTaskNumberET.text.toString(), createTaskTypeTV.text.toString(),
+                createTaskPriceTV.text.toString(), createTaskShelfET.text.toString(),
+                createTaskDescriptionET.text.toString(), createTaskPriorityTV.text.toString()
+            )
+        }
     }
 
     override fun finishActivity() {
@@ -146,10 +140,6 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
         } else {
             presenter?.deleteImageFile()
         }
-    }
-
-    override fun showSaveFAB() {
-        createTaskSavePickFAB.show()
     }
 
     override fun showReplaceDialog() {

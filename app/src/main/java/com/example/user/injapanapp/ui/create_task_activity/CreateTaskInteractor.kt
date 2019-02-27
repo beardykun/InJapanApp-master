@@ -31,14 +31,14 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
         listener: ICreateTaskInteractor.OnCreateTaskListener
     ) {
         when {
-            taskNumber.length < 7 -> listener.onError("Enter valid number", 1)
+            taskNumber.length < 6 -> listener.onError("Enter valid number", 1)
             taskType == "" -> listener.onError("Choose task type", 2)
             taskPrice == "" -> listener.onError("Enter price", 3)
             taskShelf == "" -> listener.onError("Enter a shelf number", 4)
             taskDescription == "" -> listener.onError("Enter task Description", 5)
             else -> {
                 val time = System.currentTimeMillis()
-                taskObject.taskNumber = taskNumber
+                taskObject.taskNumber = rOrS(taskNumber.toInt())
                 taskObject.taskStartTime = time.toString()
                 taskObject.taskType = taskType
                 taskObject.taskPrice = taskPrice
@@ -54,12 +54,12 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
         val repository = TaskRepository(ThisApplication.getInstance())
         doAsync {
             val checkTaskExists = repository.findByTaskNumber(taskObject.taskNumber)
-            taskObject.id = checkTaskExists.id
             uiThread {
                 if (checkTaskExists == null) {
                     DBUpdateService.insertTask(ThisApplication.getInstance(), taskObject)
                     listener.onSuccess()
                 } else {
+                    taskObject.id = checkTaskExists.id
                     listener.onErrorTaskInside()
                 }
             }
@@ -104,18 +104,26 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
     override fun processAndSetImage(imageView: ImageView, listener: ICreateTaskInteractor.OnCreateTaskListener) {
         mResultsBitmap = BitmapUtils.resamplePic(ThisApplication.getInstance(), mTempPhotoPath!!)
         imageView.imageBitmap = mResultsBitmap
+        saveImage()
         listener.onProcessAndSetImageSuccess()
     }
 
-    override fun saveImage(listener: ICreateTaskInteractor.OnCreateTaskListener) {
+    private fun saveImage() {
         BitmapUtils.deleteImageFile(ThisApplication.getInstance(), mTempPhotoPath!!)
         val savedPath: String? = BitmapUtils.saveImage(ThisApplication.getInstance(), mResultsBitmap!!)
         taskObject.taskPhoto = savedPath
-        listener.onSaveAndClearAndDeleteSuccess()
     }
 
     override fun clearImage(listener: ICreateTaskInteractor.OnCreateTaskListener) {
         BitmapUtils.deleteImageFile(ThisApplication.getInstance(), mTempPhotoPath!!)
         listener.onSaveAndClearAndDeleteSuccess()
+    }
+
+    private fun rOrS(num:Int):String{
+        return if (num > 500000){
+            "R-$num"
+        }else{
+            "S-$num"
+        }
     }
 }
