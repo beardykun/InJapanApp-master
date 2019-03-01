@@ -3,10 +3,8 @@ package com.example.user.injapanapp.ui.task_detail_activity
 import android.content.Context
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -15,7 +13,6 @@ import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.ui.general_activity.GeneralActivityWithAppBar
 import com.example.user.injapanapp.ui.picture_view_activity.PictureViewActivity
 import kotlinx.android.synthetic.main.activity_task_detail.*
-import org.jetbrains.anko.toast
 
 class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextView.OnEditorActionListener {
 
@@ -95,10 +92,13 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
             Utils.getSelector(this, it as TextView, resources.getStringArray(R.array.priority).toList())
             presenter?.updatePriority(detailPriorityTV.text.toString())
         }
+        detailTaskShelfTV.setOnClickListener {
+            Utils.getSelector(this, it as TextView, resources.getStringArray(R.array.self).toList())
+            presenter?.updateShelf(detailTaskShelfTV.text.toString()) }
     }
 
     override fun onEditorAction(textView: TextView, p1: Int, keyEvent: KeyEvent?): Boolean {
-        if (p1 == EditorInfo.IME_ACTION_DONE){
+        if (p1 == EditorInfo.IME_ACTION_DONE) {
             val view = this.currentFocus
             view?.let { v ->
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as

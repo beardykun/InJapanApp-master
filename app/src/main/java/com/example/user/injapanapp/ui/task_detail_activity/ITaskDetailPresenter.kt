@@ -33,4 +33,5 @@ interface ITaskDetailPresenter: IGeneralPresenter {
     )
 
      fun updatePriority(priority: String)
+     fun updateShelf(shelf: String)
 }

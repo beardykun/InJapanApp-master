@@ -4,8 +4,6 @@ import android.os.Handler
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
-import android.text.InputType
-import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,8 +16,10 @@ import com.example.user.injapanapp.database.DBUpdateService
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
 import com.example.user.injapanapp.ui.create_task_activity.BitmapUtils
-import org.jetbrains.anko.*
-import java.lang.Exception
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.image
+import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 class TaskDetailInteractor :
     ITaskDetailInteractor {
@@ -56,7 +56,7 @@ class TaskDetailInteractor :
             } else {
                 listener.onError("Don't forget to take money first!!!", 7)
             }
-        }else {
+        } else {
             taskObject?.taskFinished = "0"
             DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
             listener.onSuccessUpdateFinished()
@@ -169,6 +169,14 @@ class TaskDetailInteractor :
             Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
         } else {
             listener.onError("Same Priority!", 22)
+        }
+    }
+
+    override fun updateShelf(listener: ITaskDetailInteractor.OnTaskDetailListener, shelf: String) {
+        if (!taskObject?.taskShelfNumber.equals(shelf)){
+            taskObject?.taskShelfNumber = shelf
+            DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
+            Handler().postDelayed({listener.onSuccessUpdatePay()}, 300)
         }
     }
 }

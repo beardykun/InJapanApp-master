@@ -32,4 +32,5 @@ interface ITaskDetailInteractor {
     )
 
     fun updatePriority(priority: String, listener: OnTaskDetailListener)
+    fun updateShelf(listener: OnTaskDetailListener, shelf: String)
 }
