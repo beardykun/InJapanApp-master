@@ -44,7 +44,7 @@ class TaskDetailInteractor :
             taskObject?.taskGotMoney = "0"
 
         DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-        Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
+        Handler().postDelayed({ listener.onSuccessUpdate() }, 300)
     }
 
     override fun updateFinishedStatus(listener: ITaskDetailInteractor.OnTaskDetailListener) {
@@ -66,7 +66,7 @@ class TaskDetailInteractor :
     override fun editDescription(string: String, listener: ITaskDetailInteractor.OnTaskDetailListener) {
         taskObject?.taskDescription = string
         DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-        Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
+        Handler().postDelayed({ listener.onSuccessUpdate() }, 300)
     }
 
     override fun updateDoneStatus(listener: ITaskDetailInteractor.OnTaskDetailListener) {
@@ -76,7 +76,7 @@ class TaskDetailInteractor :
             taskObject?.taskDone = "0"
 
         DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-        Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
+        Handler().postDelayed({ listener.onSuccessUpdate() }, 300)
     }
 
     override fun startOrStopTimer(
@@ -89,7 +89,7 @@ class TaskDetailInteractor :
             taskObject?.taskStartTimer = System.currentTimeMillis().toString()
             taskObject?.taskTimerIsRunning = "1"
             DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-            Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
+            Handler().postDelayed({ listener.onSuccessUpdate() }, 300)
         } else {
             floatingActionButton.image =
                 ContextCompat.getDrawable(ThisApplication.getInstance(), R.drawable.ic_timer_black_24dp)
@@ -166,7 +166,7 @@ class TaskDetailInteractor :
         if (!taskObject?.taskPriority.equals(priority)) {
             taskObject?.taskPriority = priority
             DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-            Handler().postDelayed({ listener.onSuccessUpdatePay() }, 300)
+            Handler().postDelayed({ listener.onSuccessUpdate() }, 300)
         } else {
             listener.onError("Same Priority!", 22)
         }
@@ -176,7 +176,9 @@ class TaskDetailInteractor :
         if (!taskObject?.taskShelfNumber.equals(shelf)){
             taskObject?.taskShelfNumber = shelf
             DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-            Handler().postDelayed({listener.onSuccessUpdatePay()}, 300)
+            Handler().postDelayed({listener.onSuccessUpdate()}, 300)
+        }else{
+            listener.onError("Same Shelf!", 33)
         }
     }
 }

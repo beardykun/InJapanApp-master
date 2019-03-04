@@ -11,7 +11,7 @@ interface ITaskDetailInteractor {
 
     interface OnTaskDetailListener : IGeneralInteractorListener {
         fun onSuccess()
-        fun onSuccessUpdatePay()
+        fun onSuccessUpdate()
         fun onSuccessUpdateFinished()
         fun onSuccessTimerStopped(time: String)
     }

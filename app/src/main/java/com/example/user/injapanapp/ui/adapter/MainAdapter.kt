@@ -70,7 +70,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
                 taskListToShow!![position].taskDone,
                 holder.itemView
             )
-            holder.taskOrderNum.text = taskListToShow!![position].id.toString()
+            holder.taskOrderNum.text = (position + 1).toString()
             holder.taskNumber.text = taskListToShow!![position].taskNumber
             holder.dateText.text = taskListToShow!![position].taskType
             holder.shelfText.text = taskListToShow!![position].taskShelfNumber

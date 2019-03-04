@@ -24,7 +24,7 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
         view?.setTaskData()
     }
 
-    override fun onSuccessUpdatePay() {
+    override fun onSuccessUpdate() {
         view?.hideProgress()
         view?.loadTaskInfo()
     }
