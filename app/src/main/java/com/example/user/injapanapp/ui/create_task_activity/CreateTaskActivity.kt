@@ -71,19 +71,22 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
             checkPermissions()
         }
         createTaskTypeTV.setOnClickListener {
-            getSelector(this,
+            getSelector(
+                this,
                 createTaskTypeTV,
                 resources.getStringArray(R.array.tasks).toList()
             )
         }
         createTaskPriceTV.setOnClickListener {
-            getSelector(this,
+            getSelector(
+                this,
                 createTaskPriceTV,
                 resources.getStringArray(R.array.prices).toList()
             )
         }
         createTaskPriorityTV.setOnClickListener {
-            getSelector(this,
+            getSelector(
+                this,
                 createTaskPriorityTV,
                 resources.getStringArray(R.array.priority).toList()
             )

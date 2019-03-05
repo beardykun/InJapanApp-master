@@ -9,6 +9,7 @@ import android.widget.ImageView
 import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.ThisApplication
+import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.database.DBUpdateService
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
@@ -57,7 +58,7 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
             uiThread {
                 if (checkTaskExists == null) {
                     DBUpdateService.insertTask(ThisApplication.getInstance(), taskObject)
-                    listener.onSuccess()
+                    Utils.getHandler { listener.onSuccess() }
                 } else {
                     taskObject.id = checkTaskExists.id
                     listener.onErrorTaskInside()
@@ -68,7 +69,7 @@ class CreateTaskInteractor(private val taskObject: TaskObject = TaskObject(null)
 
     override fun replaceTask(listener: ICreateTaskInteractor.OnCreateTaskListener) {
         DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject)
-        Handler().postDelayed({ listener.onSuccess() }, 300)
+        Utils.getHandler { listener.onSuccess() }
     }
 
     override fun launchCamera(listener: ICreateTaskInteractor.OnCreateTaskListener) {

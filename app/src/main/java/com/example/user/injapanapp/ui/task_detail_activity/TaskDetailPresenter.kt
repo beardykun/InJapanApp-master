@@ -83,7 +83,7 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
         detailTaskShelfTV: TextView, detailTaskEndDateTV: TextView, detailTaskDescriptionTV: EditText,
         detailPhotoIV: ImageView, detailPriorityTV: TextView, detailStartTimerFAB: FloatingActionButton,
         detailMainLayout: CoordinatorLayout
-        ) {
+    ) {
         view?.showProgress()
         interactor.setTaskData(
             detailTaskNumberTV, detailTaskTypeTV, detailTaskPriceTV,

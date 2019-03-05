@@ -1,6 +1,7 @@
 package com.example.user.injapanapp.app
 
 import android.content.Context
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.TextView
@@ -40,7 +41,6 @@ class Utils {
         }
 
         fun getSelector(context: Context, textView: TextView, choices: List<CharSequence>) {
-
             context.selector("Choose value", choices) { _, i ->
                 textView.text = choices[i]
             }
@@ -68,6 +68,9 @@ class Utils {
                 view.backgroundColor =
                     ContextCompat.getColor(ThisApplication.getInstance(), R.color.white)
             }
+        }
+        fun getHandler(func: () -> Unit?){
+            Handler().postDelayed({func()}, 300)
         }
     }
 }

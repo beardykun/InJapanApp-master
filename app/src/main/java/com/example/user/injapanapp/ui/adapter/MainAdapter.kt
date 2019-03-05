@@ -41,7 +41,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
 
     override fun getItemCount(): Int {
         return if (taskListToShow != null)
-        taskListToShow!!.size
+            taskListToShow!!.size
         else
             0
     }
@@ -58,7 +58,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
                 }
                 setStuff(holder, position)
             }
-        }else{
+        } else {
             holder.taskNumber.text = "No Task Present"
         }
     }
@@ -85,12 +85,12 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>(),
             }
             if (taskListToShow!![position].taskPriority != null)
                 Utils.setPriorityColors(holder.taskNumber, taskListToShow!![position].taskPriority!!)
-        }else{
+        } else {
             holder.taskNumber.text = ThisApplication.getInstance().getString(R.string.no_tasks)
         }
     }
 
-    fun setListToShow(list: List<TaskObject>){
+    fun setListToShow(list: List<TaskObject>) {
         taskList = list
         taskListToShow = taskList
         notifyDataSetChanged()

@@ -21,8 +21,7 @@ import org.jetbrains.anko.image
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
-class TaskDetailInteractor :
-    ITaskDetailInteractor {
+class TaskDetailInteractor : ITaskDetailInteractor {
 
     private var taskObject: TaskObject? = null
 
@@ -44,7 +43,7 @@ class TaskDetailInteractor :
             taskObject?.taskGotMoney = "0"
 
         DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-        Handler().postDelayed({ listener.onSuccessUpdate() }, 300)
+        Utils.getHandler { listener.onSuccessUpdate() }
     }
 
     override fun updateFinishedStatus(listener: ITaskDetailInteractor.OnTaskDetailListener) {
@@ -59,14 +58,14 @@ class TaskDetailInteractor :
         } else {
             taskObject?.taskFinished = "0"
             DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-            listener.onSuccessUpdateFinished()
+            Utils.getHandler { listener.onSuccessUpdateFinished() }
         }
     }
 
     override fun editDescription(string: String, listener: ITaskDetailInteractor.OnTaskDetailListener) {
         taskObject?.taskDescription = string
         DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-        Handler().postDelayed({ listener.onSuccessUpdate() }, 300)
+        Utils.getHandler { listener.onSuccessUpdate() }
     }
 
     override fun updateDoneStatus(listener: ITaskDetailInteractor.OnTaskDetailListener) {
@@ -76,7 +75,7 @@ class TaskDetailInteractor :
             taskObject?.taskDone = "0"
 
         DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-        Handler().postDelayed({ listener.onSuccessUpdate() }, 300)
+        Utils.getHandler { listener.onSuccessUpdate() }
     }
 
     override fun startOrStopTimer(
@@ -97,7 +96,7 @@ class TaskDetailInteractor :
             val time = Utils.getTimerTime(taskObject!!.taskStartTimer!!.toLong())
             taskObject?.taskTimePassed = time
             DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-            Handler().postDelayed({ listener.onSuccessTimerStopped(time) }, 300)
+            Utils.getHandler { listener.onSuccessTimerStopped(time) }
         }
     }
 
@@ -166,18 +165,18 @@ class TaskDetailInteractor :
         if (!taskObject?.taskPriority.equals(priority)) {
             taskObject?.taskPriority = priority
             DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-            Handler().postDelayed({ listener.onSuccessUpdate() }, 300)
+            Utils.getHandler { listener.onSuccessUpdate() }
         } else {
             listener.onError("Same Priority!", 22)
         }
     }
 
     override fun updateShelf(listener: ITaskDetailInteractor.OnTaskDetailListener, shelf: String) {
-        if (!taskObject?.taskShelfNumber.equals(shelf)){
+        if (!taskObject?.taskShelfNumber.equals(shelf)) {
             taskObject?.taskShelfNumber = shelf
             DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-            Handler().postDelayed({listener.onSuccessUpdate()}, 300)
-        }else{
+            Utils.getHandler { listener.onSuccessUpdate() }
+        } else {
             listener.onError("Same Shelf!", 33)
         }
     }

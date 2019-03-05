@@ -90,11 +90,12 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         }
         detailPriorityTV.setOnClickListener {
             Utils.getSelector(this, it as TextView, resources.getStringArray(R.array.priority).toList())
-            presenter?.updatePriority(detailPriorityTV.text.toString())
+            Utils.getHandler { presenter?.updatePriority(it.text.toString()) }
         }
         detailTaskShelfTV.setOnClickListener {
             Utils.getSelector(this, it as TextView, resources.getStringArray(R.array.self).toList())
-            presenter?.updateShelf(it.text.toString()) }
+            Utils.getHandler { presenter?.updateShelf(it.text.toString()) }
+        }
     }
 
     override fun onEditorAction(textView: TextView, p1: Int, keyEvent: KeyEvent?): Boolean {
