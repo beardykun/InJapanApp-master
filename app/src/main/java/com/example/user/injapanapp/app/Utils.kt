@@ -40,7 +40,7 @@ class Utils {
             }.show()
         }
 
-        fun getSelector(context: Context, textView: TextView, choices: List<CharSequence>) {
+        fun getSelector(context: Context, textView: TextView, choices: List<CharSequence>){
             context.selector("Choose value", choices) { _, i ->
                 textView.text = choices[i]
             }

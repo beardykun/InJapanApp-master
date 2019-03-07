@@ -32,6 +32,6 @@ interface ITaskDetailPresenter: IGeneralPresenter {
         detailMainLayout: CoordinatorLayout
     )
 
-     fun updatePriority(priority: String)
-     fun updateShelf(shelf: String)
+
+     fun updateTaskObject(detailPriority: String, detailTaskShelf: String)
 }

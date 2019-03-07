@@ -161,23 +161,12 @@ class TaskDetailInteractor : ITaskDetailInteractor {
         }
     }
 
-    override fun updatePriority(priority: String, listener: ITaskDetailInteractor.OnTaskDetailListener) {
-        if (!taskObject?.taskPriority.equals(priority)) {
-            taskObject?.taskPriority = priority
-            DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-            Utils.getHandler { listener.onSuccessUpdate() }
-        } else {
-            listener.onError("Same Priority!", 22)
-        }
-    }
-
-    override fun updateShelf(listener: ITaskDetailInteractor.OnTaskDetailListener, shelf: String) {
-        if (!taskObject?.taskShelfNumber.equals(shelf)) {
-            taskObject?.taskShelfNumber = shelf
-            DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
-            Utils.getHandler { listener.onSuccessUpdate() }
-        } else {
-            listener.onError("Same Shelf!", 33)
-        }
+    override fun updateTaskObject(
+        detailPriority: String,
+        detailTaskShelf: String
+    ) {
+        taskObject?.taskPriority = detailPriority
+        taskObject?.taskShelfNumber = detailTaskShelf
+        DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
     }
 }

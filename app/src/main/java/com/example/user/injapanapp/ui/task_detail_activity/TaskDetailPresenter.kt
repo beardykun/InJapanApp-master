@@ -92,13 +92,7 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
         )
     }
 
-    override fun updatePriority(priority: String) {
-        view?.showProgress()
-        interactor.updatePriority(priority, this)
-    }
-
-    override fun updateShelf(shelf: String) {
-        view?.showProgress()
-        interactor.updateShelf(this, shelf)
+    override fun updateTaskObject(detailPriority: String, detailTaskShelf: String) {
+        interactor.updateTaskObject(detailPriority, detailTaskShelf)
     }
 }

@@ -3,6 +3,7 @@ package com.example.user.injapanapp.ui.task_detail_activity
 import android.content.Context
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -90,11 +91,13 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         }
         detailPriorityTV.setOnClickListener {
             Utils.getSelector(this, it as TextView, resources.getStringArray(R.array.priority).toList())
-            Utils.getHandler { presenter?.updatePriority(it.text.toString()) }
         }
         detailTaskShelfTV.setOnClickListener {
-            Utils.getSelector(this, it as TextView, resources.getStringArray(R.array.self).toList())
-            Utils.getHandler { presenter?.updateShelf(it.text.toString()) }
+            Utils.getSelector(
+                this,
+                it as TextView,
+                resources.getStringArray(R.array.self).toList()
+            )
         }
     }
 
@@ -121,5 +124,10 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         detailTimerTimeTV.visibility = View.VISIBLE
         val text = getString(R.string.timer_prefix) + ": " + time
         detailTimerTimeTV.text = text
+    }
+
+    override fun onBackPressed() {
+        presenter?.updateTaskObject(detailPriorityTV.text.toString(), detailTaskShelfTV.text.toString())
+        super.onBackPressed()
     }
 }

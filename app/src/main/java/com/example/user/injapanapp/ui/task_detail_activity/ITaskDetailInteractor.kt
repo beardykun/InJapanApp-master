@@ -31,6 +31,5 @@ interface ITaskDetailInteractor {
         detailMainLayout: CoordinatorLayout, listener: OnTaskDetailListener
     )
 
-    fun updatePriority(priority: String, listener: OnTaskDetailListener)
-    fun updateShelf(listener: OnTaskDetailListener, shelf: String)
+    fun updateTaskObject(detailPriority: String, detailTaskShelf: String)
 }
