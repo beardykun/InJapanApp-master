@@ -101,7 +101,13 @@
                         android:layout_width="0dp"
                         android:text="@string/shelf_number"
                         android:gravity="center_vertical"
-                        android:layout_weight="1"
+                        android:layout_weight="0.8"
+                        android:layout_height="match_parent"/>
+
+                <ImageButton
+                        android:id="@+id/createTaskShelfIB"
+                        android:layout_weight="0.2"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"/>
 
                 <EditText
