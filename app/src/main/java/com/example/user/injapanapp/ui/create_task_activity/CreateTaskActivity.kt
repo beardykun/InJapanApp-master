@@ -84,6 +84,13 @@ class CreateTaskActivity : GeneralActivityWithAppBar(), ICreateTaskView {
                 resources.getStringArray(R.array.prices).toList()
             )
         }
+        createTaskShelfIB.setOnClickListener {
+            getSelector(
+                this,
+                createTaskShelfET,
+                resources.getStringArray(R.array.shelf).toList()
+            )
+        }
         createTaskPriorityTV.setOnClickListener {
             getSelector(
                 this,

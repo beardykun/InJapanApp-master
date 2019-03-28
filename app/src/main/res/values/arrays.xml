@@ -7,7 +7,7 @@
         <item>保留リスト</item>
     </string-array>
 
-    <string-array name="self">
+    <string-array name="shelf">
         <item>SEA</item>
         <item>AVIA</item>
         <item>NYUKE</item>

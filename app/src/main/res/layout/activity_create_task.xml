@@ -104,12 +104,6 @@
                         android:layout_weight="0.8"
                         android:layout_height="match_parent"/>
 
-                <ImageButton
-                        android:id="@+id/createTaskShelfIB"
-                        android:layout_weight="0.2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-
                 <EditText
                         android:id="@+id/createTaskShelfET"
                         android:inputType="numberDecimal"
@@ -117,6 +111,13 @@
                         android:layout_width="0dp"
                         android:hint="@string/enter_shelf_number"
                         android:layout_height="wrap_content"/>
+
+                <ImageButton
+                        android:id="@+id/createTaskShelfIB"
+                        android:layout_weight="0.2"
+                        android:layout_width="0dp"
+                        app:srcCompat="@drawable/ic_play_for_work_black_24dp"
+                        android:layout_height="match_parent"/>
 
             </LinearLayout>
 

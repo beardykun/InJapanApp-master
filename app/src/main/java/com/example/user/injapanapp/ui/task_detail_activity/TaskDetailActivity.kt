@@ -3,7 +3,6 @@ package com.example.user.injapanapp.ui.task_detail_activity
 import android.content.Context
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -59,7 +58,7 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
 
     override fun setTaskData() {
         presenter?.setTaskData(
-            detailTaskNumberTV, detailTaskTypeTV, detailTaskPriceTV, detailTaskShelfTV,
+            detailTaskNumberTV, detailTaskTypeTV, detailTaskPriceTV, detailTaskShelfET,
             detailTaskEndDateTV, detailTaskDescriptionTV, detailPhotoIV, detailPriorityTV,
             detailStartTimerFAB, detailMainLayout
         )
@@ -92,11 +91,11 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         detailPriorityTV.setOnClickListener {
             Utils.getSelector(this, it as TextView, resources.getStringArray(R.array.priority).toList())
         }
-        detailTaskShelfTV.setOnClickListener {
+        detailTaskShelfET.setOnClickListener {
             Utils.getSelector(
                 this,
                 it as TextView,
-                resources.getStringArray(R.array.self).toList()
+                resources.getStringArray(R.array.shelf).toList()
             )
         }
     }
@@ -127,7 +126,7 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
     }
 
     override fun onBackPressed() {
-        presenter?.updateTaskObject(detailPriorityTV.text.toString(), detailTaskShelfTV.text.toString())
+        presenter?.updateTaskObject(detailPriorityTV.text.toString(), detailTaskShelfET.text.toString())
         super.onBackPressed()
     }
 }
