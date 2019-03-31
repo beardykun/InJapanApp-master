@@ -74,10 +74,6 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
         interactor.startOrStopTimer(floatingActionButton, this)
     }
 
-    override fun enableDisableEditDescription(detailTaskDescriptionTV: EditText, enabled: Boolean) {
-        interactor.enableDisableEditDescription(detailTaskDescriptionTV, enabled)
-    }
-
     override fun setTaskData(
         detailTaskNumberTV: TextView, detailTaskTypeTV: TextView, detailTaskPriceTV: TextView,
         detailTaskShelfTV: TextView, detailTaskEndDateTV: TextView, detailTaskDescriptionTV: EditText,
@@ -94,5 +90,10 @@ class TaskDetailPresenter(private val interactor: ITaskDetailInteractor = TaskDe
 
     override fun updateTaskObject(detailPriority: String, detailTaskShelf: String) {
         interactor.updateTaskObject(detailPriority, detailTaskShelf)
+    }
+
+    override fun changeShelf(newShelf: String) {
+        view?.showProgress()
+        interactor.updateShelf(newShelf, this)
     }
 }

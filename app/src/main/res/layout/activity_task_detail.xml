@@ -11,6 +11,7 @@
         tools:context=".ui.task_detail_activity.TaskDetailActivity">
 
     <android.support.v4.widget.NestedScrollView
+            android:id="@+id/detailNestedLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -112,17 +113,25 @@
 
                 <TextView
                         android:text="@string/shelf_number"
-                        android:layout_weight="1"
+                        android:layout_weight="0.8"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
 
                 <EditText
                         android:id="@+id/detailTaskShelfET"
+                        android:inputType="numberDecimal"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:gravity="center"
                         android:layout_height="wrap_content"
                         tools:text="3312/5"/>
+
+                <ImageButton
+                        android:id="@+id/detailTaskShelfIB"
+                        android:layout_weight="0.2"
+                        android:layout_width="0dp"
+                        app:srcCompat="@drawable/ic_play_for_work_black_24dp"
+                        android:layout_height="match_parent"/>
             </LinearLayout>
 
             <LinearLayout
@@ -159,7 +168,6 @@
 
             <EditText
                     android:hint="@string/enter_description"
-                    android:focusable="false"
                     android:inputType="textMultiLine"
                     android:id="@+id/detailTaskDescriptionTV"
                     android:layout_width="match_parent"
@@ -183,7 +191,7 @@
             android:layout_gravity="center"
             app:srcCompat="@drawable/ic_done_black_24dp"
             app:layout_anchorGravity="bottom"
-            app:layout_anchor="@id/detailMainLayout"
+            app:layout_anchor="@id/detailNestedLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

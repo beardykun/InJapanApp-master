@@ -81,17 +81,16 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         detailTaskTypeTV.setOnClickListener {
             Utils.getAlert(this, getString(R.string.task_accomplished), fun() { presenter?.updateDoneStatus() })
         }
+        detailTaskShelfET.setOnEditorActionListener(this)
+        detailTaskShelfET.imeOptions = EditorInfo.IME_ACTION_DONE
+        detailTaskShelfET.setRawInputType(InputType.TYPE_CLASS_TEXT)
         detailTaskDescriptionTV.setOnEditorActionListener(this)
         detailTaskDescriptionTV.imeOptions = EditorInfo.IME_ACTION_DONE
         detailTaskDescriptionTV.setRawInputType(InputType.TYPE_CLASS_TEXT)
-        detailWhatToDoTV.setOnClickListener {
-            Utils.getAlert(this, getString(R.string.edit_description),
-                fun() { presenter?.enableDisableEditDescription(detailTaskDescriptionTV, true) })
-        }
         detailPriorityTV.setOnClickListener {
             Utils.getSelector(this, it as TextView, resources.getStringArray(R.array.priority).toList())
         }
-        detailTaskShelfET.setOnClickListener {
+        detailTaskShelfIB.setOnClickListener {
             Utils.getSelector(
                 this,
                 it as TextView,
@@ -108,8 +107,11 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
                         InputMethodManager
                 imm.hideSoftInputFromWindow(v.windowToken, 0)
             }
-            presenter?.enableDisableEditDescription(detailTaskDescriptionTV, false)
-            presenter?.addDescription(textView.text.toString())
+            if (textView == detailTaskDescriptionTV) {
+                presenter?.addDescription(textView.text.toString())
+            }else{
+                presenter?.changeShelf(textView.text.toString())
+            }
             return true
         }
         return false

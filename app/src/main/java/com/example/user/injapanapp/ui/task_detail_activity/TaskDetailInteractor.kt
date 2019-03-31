@@ -100,15 +100,6 @@ class TaskDetailInteractor : ITaskDetailInteractor {
         }
     }
 
-    override fun enableDisableEditDescription(detailTaskDescriptionTV: EditText, enabled: Boolean) {
-        if (enabled) {
-            detailTaskDescriptionTV.isFocusableInTouchMode = true
-            detailTaskDescriptionTV.isFocusable = true
-        } else {
-            detailTaskDescriptionTV.isFocusable = false
-        }
-    }
-
     override fun setTaskData(
         detailTaskNumberTV: TextView,
         detailTaskTypeTV: TextView,
@@ -168,5 +159,11 @@ class TaskDetailInteractor : ITaskDetailInteractor {
         taskObject?.taskPriority = detailPriority
         taskObject?.taskShelfNumber = detailTaskShelf
         DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
+    }
+
+    override fun updateShelf(newShelf: String, listener: ITaskDetailInteractor.OnTaskDetailListener) {
+        taskObject?.taskShelfNumber = newShelf
+        DBUpdateService.updateTask(ThisApplication.getInstance(), taskObject!!)
+        Utils.getHandler { listener.onSuccessUpdate() }
     }
 }

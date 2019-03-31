@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.user.injapanapp.ui.general_activity.IGeneralPresenter
 
-interface ITaskDetailPresenter: IGeneralPresenter {
+interface ITaskDetailPresenter : IGeneralPresenter {
 
     fun onAttachView(view: ITaskDetailView)
 
@@ -18,7 +18,6 @@ interface ITaskDetailPresenter: IGeneralPresenter {
     fun addDescription(string: String)
     fun updateDoneStatus()
     fun startOrStopTimer(floatingActionButton: FloatingActionButton)
-    fun enableDisableEditDescription(detailTaskDescriptionTV: EditText, enabled: Boolean)
     fun setTaskData(
         detailTaskNumberTV: TextView,
         detailTaskTypeTV: TextView,
@@ -33,5 +32,6 @@ interface ITaskDetailPresenter: IGeneralPresenter {
     )
 
 
-     fun updateTaskObject(detailPriority: String, detailTaskShelf: String)
+    fun updateTaskObject(detailPriority: String, detailTaskShelf: String)
+    fun changeShelf(newShelf: String)
 }

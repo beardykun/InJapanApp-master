@@ -23,7 +23,6 @@ interface ITaskDetailInteractor {
     fun editDescription(string: String, listener: OnTaskDetailListener)
     fun updateDoneStatus(listener: OnTaskDetailListener)
     fun startOrStopTimer(floatingActionButton: FloatingActionButton, listener: OnTaskDetailListener)
-    fun enableDisableEditDescription(detailTaskDescriptionTV: EditText, enabled: Boolean)
     fun setTaskData(
         detailTaskNumberTV: TextView, detailTaskTypeTV: TextView, detailTaskPriceTV: TextView,
         detailTaskShelfTV: TextView, detailTaskEndDateTV: TextView, detailTaskDescriptionTV: EditText,
@@ -32,4 +31,5 @@ interface ITaskDetailInteractor {
     )
 
     fun updateTaskObject(detailPriority: String, detailTaskShelf: String)
+    fun updateShelf(newShelf: String, listener: OnTaskDetailListener)
 }
