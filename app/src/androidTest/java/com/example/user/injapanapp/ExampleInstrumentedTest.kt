@@ -1,7 +1,6 @@
 package com.example.user.injapanapp
 
 import android.support.test.InstrumentationRegistry
-import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onData
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.*
@@ -12,12 +11,9 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import android.support.v7.widget.RecyclerView
-import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.ui.adapter.MainAdapter
 import com.example.user.injapanapp.ui.main_activity.MainActivity
 import org.hamcrest.CoreMatchers.*
-import org.hamcrest.Matchers.hasEntry
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test

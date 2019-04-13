@@ -2,7 +2,9 @@ package com.example.user.injapanapp.ui.main_activity
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v7.preference.PreferenceManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.user.injapanapp.R
@@ -11,19 +13,19 @@ import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.database.TaskObject
 import com.example.user.injapanapp.database.TaskRepository
-import com.example.user.injapanapp.ui.adapter.MainAdapter
 import com.example.user.injapanapp.ui.create_task_activity.CreateTaskActivity
 import com.example.user.injapanapp.ui.general_activity.GeneralActivityWithMenu
 import com.example.user.injapanapp.ui.settings.SettingsActivity
 import com.example.user.injapanapp.ui.task_detail_activity.TaskDetailActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, IMainView {
+class MainActivity : GeneralActivityWithMenu(), IMainView {
 
     private var repository: TaskRepository? = null
     private var presenter: IMainPresenter? = null
     private var preferencesChanged = true
     private var sort: String = "none"
+    private val titleArray = arrayOf("ALL", "TEST", "SEPARATE", "TRASH", "保留リスト")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,39 +49,14 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
             )!!
             preferencesChanged = false
         }
-        setOnClicks()
+        mainAddTask.setOnClickListener {
+            startActivity(CreateTaskActivity::class.java)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        getList()
-    }
-
-    private fun setOnClicks() {
-        val array = resources.getStringArray(R.array.tasks)
-        mainAddTask.setOnClickListener {
-            startActivity(CreateTaskActivity::class.java)
-        }
-        showAllBTN.setOnClickListener{
-            SharedPreferencesClass.deleteFromPrefs()
-            recreate()
-        }
-        showTestBTN.setOnClickListener{
-            SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, array[0])
-            recreate()
-        }
-        showSeparateBTN.setOnClickListener{
-            SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, array[1])
-            recreate()
-        }
-        showTrashBTN.setOnClickListener{
-            SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, array[2])
-            recreate()
-        }
-        showHoryuBTN.setOnClickListener{
-            SharedPreferencesClass.saveStringInPreferences(Constants.TASK_TYPE, array[3])
-            recreate()
-        }
+        presenter?.getTaskList(sort)
     }
 
     override fun onStop() {
@@ -105,29 +82,24 @@ class MainActivity : GeneralActivityWithMenu(), MainAdapter.OnMainTaskListener, 
         showErrorSnack(error.toString())
     }
 
-    override fun onMainTaskClick(taskNum: String) {
+    fun onMainTaskClick(taskNum: String) {
         SharedPreferencesClass.saveStringInPreferences(Constants.PASS_TASK_NUMBER_WITH_PREFS, taskNum)
         startActivity(TaskDetailActivity::class.java)
     }
 
-    override fun onDeleteTaskClick(taskObject: TaskObject) {
+    fun onDeleteTaskClick(taskObject: TaskObject) {
         Utils.getAlert(this, getString(R.string.delete_task), fun() {
             presenter?.deleteTask(taskObject)
         })
     }
 
     override fun setAdapter(list: List<TaskObject>) {
-        val adapter = MainAdapter()
-        adapter.setListToShow(list)
-        adapter.setOnMainTaskListener(this)
-        mainRecyclerView.adapter = adapter
+        mainViewPager.adapter = MyPageAdapter(supportFragmentManager, titleArray, list)
+        mainTabs.setupWithViewPager(mainViewPager)
     }
 
     override fun getList() {
-        if (!SharedPreferencesClass.contains(Constants.TASK_TYPE))
-            presenter?.getTaskList(sort)
-        else
-            presenter?.getTaskListWithTaskType(sort)
+        startActivity(MainActivity::class.java)
     }
 
     private val onSharedPreferencesListener: SharedPreferences.OnSharedPreferenceChangeListener =

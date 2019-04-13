@@ -10,10 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.injapanapp.R
-import com.example.user.injapanapp.app.Constants
-import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.ui.history_activity.HistoryActivity
-import com.example.user.injapanapp.ui.main_activity.MainActivity
 import kotlinx.android.synthetic.main.activity_general_with_menu.*
 import kotlinx.android.synthetic.main.toolbar.*
 

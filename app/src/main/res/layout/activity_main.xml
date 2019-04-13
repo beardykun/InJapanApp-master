@@ -41,18 +41,23 @@
                     android:layout_height="match_parent"/>
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/mainRecyclerView"
+        <android.support.v4.view.ViewPager
+                android:id="@+id/mainViewPager"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                android:paddingBottom="@dimen/dp32"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent">
+
+        <android.support.design.widget.TabLayout
+                android:id="@+id/mainTabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.v4.view.ViewPager>
 
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/mainAddTask"
-            app:layout_anchor="@id/mainRecyclerView"
+            app:layout_anchor="@id/mainViewPager"
             android:layout_marginEnd="@dimen/dp16"
             android:layout_marginRight="@dimen/dp16"
             app:elevation="@dimen/dimen_8"
@@ -61,59 +66,5 @@
             app:layout_anchorGravity="bottom|end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:elevation="@dimen/dimen_8"
-            app:layout_anchor="@id/mainRecyclerView"
-            app:layout_anchorGravity="bottom"
-            android:layout_height="48dp">
-
-        <Button
-                android:id="@+id/showAllBTN"
-                android:gravity="center"
-                android:background="@drawable/round_corners"
-                android:text="@string/all"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-        <Button
-                android:id="@+id/showTestBTN"
-                android:gravity="center"
-                android:background="@drawable/round_corners"
-                android:text="@string/test"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-        <Button
-                android:id="@+id/showSeparateBTN"
-                android:gravity="center"
-                android:background="@drawable/round_corners"
-                android:text="@string/separate"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-        <Button
-                android:id="@+id/showTrashBTN"
-                android:background="@drawable/round_corners"
-                android:gravity="center"
-                android:text="@string/trash"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-        <Button
-                android:id="@+id/showHoryuBTN"
-                android:background="@drawable/round_corners"
-                android:gravity="center"
-                android:text="@string/horyu"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

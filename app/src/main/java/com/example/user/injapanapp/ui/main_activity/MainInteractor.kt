@@ -1,6 +1,7 @@
 package com.example.user.injapanapp.ui.main_activity
 
 import android.os.Handler
+import android.util.Log
 import com.example.user.injapanapp.app.Constants
 import com.example.user.injapanapp.app.SharedPreferencesClass
 import com.example.user.injapanapp.app.TaskComparator
@@ -19,23 +20,6 @@ class MainInteractor : IMainInteractor {
 
         doAsync {
             val list = repository.getAllNotCompleted("0")
-            uiThread {
-                sortList(sort, list)
-                listener.onSuccess(list)
-            }
-        }
-    }
-
-    override fun getTaskListWithTaskType(
-        sort: String,
-        listener: IMainInteractor.OnMainListener
-    ) {
-        val repository = TaskRepository(ThisApplication.getInstance())
-        doAsync {
-            val list = repository.getAllNotCompletedWithType(
-                "0",
-                SharedPreferencesClass.getStringFromPreferences(Constants.TASK_TYPE)
-            )
             uiThread {
                 sortList(sort, list)
                 listener.onSuccess(list)
