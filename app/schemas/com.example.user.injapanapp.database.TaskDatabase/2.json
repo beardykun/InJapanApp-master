@@ -1,0 +1,117 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "916ebd38163432e2b2c1957ba4bfe5de",
+    "entities": [
+      {
+        "tableName": "taskTable",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `taskNumber` TEXT NOT NULL, `taskStart` TEXT, `taskDone` TEXT NOT NULL, `taskEnd` TEXT, `taskShelf` TEXT, `taskType` TEXT, `taskCost` TEXT, `taskDescription` TEXT, `taskFinished` TEXT, `taskPicture` TEXT, `taskStartTimer` TEXT, `taskTimePassed` TEXT, `taskTimerIsRunning` TEXT, `taskPriority` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskNumber",
+            "columnName": "taskNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taskStartTime",
+            "columnName": "taskStart",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskDone",
+            "columnName": "taskDone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taskGotMoney",
+            "columnName": "taskEnd",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskShelfNumber",
+            "columnName": "taskShelf",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskType",
+            "columnName": "taskType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskPrice",
+            "columnName": "taskCost",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskDescription",
+            "columnName": "taskDescription",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskFinished",
+            "columnName": "taskFinished",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskPhoto",
+            "columnName": "taskPicture",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskStartTimer",
+            "columnName": "taskStartTimer",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskTimePassed",
+            "columnName": "taskTimePassed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskTimerIsRunning",
+            "columnName": "taskTimerIsRunning",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "taskPriority",
+            "columnName": "taskPriority",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"916ebd38163432e2b2c1957ba4bfe5de\")"
+    ]
+  }
+}

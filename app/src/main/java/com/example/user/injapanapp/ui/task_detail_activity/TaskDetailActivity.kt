@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.view.KeyEvent
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -11,6 +12,7 @@ import android.widget.TextView
 import com.example.user.injapanapp.R
 import com.example.user.injapanapp.app.Utils
 import com.example.user.injapanapp.ui.general_activity.GeneralActivityWithAppBar
+import com.example.user.injapanapp.ui.main_activity.MainActivity
 import com.example.user.injapanapp.ui.picture_view_activity.PictureViewActivity
 import kotlinx.android.synthetic.main.activity_task_detail.*
 
@@ -93,7 +95,7 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         detailTaskShelfIB.setOnClickListener {
             Utils.getSelector(
                 this,
-                it as TextView,
+                detailTaskShelfET,
                 resources.getStringArray(R.array.shelf).toList()
             )
         }
@@ -118,7 +120,7 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
     }
 
     override fun finishActivity() {
-        finish()
+        startActivity(MainActivity::class.java)
     }
 
     override fun setTime(time: String) {
@@ -127,8 +129,11 @@ class TaskDetailActivity : GeneralActivityWithAppBar(), ITaskDetailView, TextVie
         detailTimerTimeTV.text = text
     }
 
-    override fun onBackPressed() {
-        presenter?.updateTaskObject(detailPriorityTV.text.toString(), detailTaskShelfET.text.toString())
-        super.onBackPressed()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+            presenter?.updateTaskObject(detailPriorityTV.text.toString(), detailTaskShelfET.text.toString())
+            startActivity(MainActivity::class.java)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

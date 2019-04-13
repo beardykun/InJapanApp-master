@@ -11,6 +11,5 @@ interface IMainInteractor {
     }
 
     fun getTaskList(sort: String, listener: OnMainListener)
-    fun getTaskListWithTaskType(sort:String, listener: OnMainListener)
     fun deleteTask(taskObject: TaskObject, listener: OnMainListener)
 }
